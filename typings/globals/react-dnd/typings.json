@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/8d14188c4c91006d80961065ca3080decf166b48/react-dnd/react-dnd.d.ts",
+    "raw": "registry:dt/react-dnd#2.0.2+20161111212335",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/8d14188c4c91006d80961065ca3080decf166b48/react-dnd/react-dnd.d.ts"
+  }
+}

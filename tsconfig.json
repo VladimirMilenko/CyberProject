@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es6",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "noLib": false,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "lib": ["es6","dom"],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
+}
