@@ -26,8 +26,15 @@ module.exports = {
             {
                 test: /\.scss?$/,
                 loader: 'css-loader',
+
                 include:path.join(__dirname,'src')
+            },
+            {
+                test: /\.less?$/,
+                loader: 'style-loader!css-loader!less-loader',
+                include:__dirname
             }
+
         ]
     }
 }

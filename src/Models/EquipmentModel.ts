@@ -1,5 +1,6 @@
 import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {observable, computed} from "mobx";
+import {isUndefined} from "util";
 export class EquipmentModel extends CyberObjectInstance {
     @observable name;
     @observable code;
@@ -7,11 +8,11 @@ export class EquipmentModel extends CyberObjectInstance {
 
     fromJson(object: any) {
         super.fromJson(object);
-        if (object.name != undefined)
+        if (!isUndefined(object.name))
             this.name = object.name;
-        if (object.code != undefined)
+        if (!isUndefined(object.code != undefined))
             this.code = object.code;
-        if (object.status != undefined)
+        if (!isUndefined(object.status != undefined))
             this.status = object.status;
 
     }

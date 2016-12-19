@@ -528,7 +528,7 @@ export function addNodeUnderParent({
             }
             hasBeenAdded = true;
 
-            const parentNode = {
+            const parentNode:any = {
                 ...node,
             };
 
@@ -944,7 +944,7 @@ export function find({
         }
 
         let childIndex = currentIndex;
-        const newNode = {...node};
+        const newNode:any = {...node};
         if (hasChildren) {
             // Get all descendants
             newNode.children = newNode.children.map((child) => {

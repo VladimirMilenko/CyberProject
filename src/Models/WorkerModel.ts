@@ -2,6 +2,8 @@ import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {observable, computed} from "mobx";
 import {inject} from "mobx-react/custom";
 import {SpecializationModel} from "./SpecializationModel";
+import {isUndefined} from "util";
+
 export class WorkerModel extends CyberObjectInstance {
     @observable name: string;
     @observable status: string;
@@ -10,9 +12,9 @@ export class WorkerModel extends CyberObjectInstance {
 
     fromJson(object: any) {
         super.fromJson(object);
-        if (object.name != undefined)
+        if (!isUndefined(object.name))
             this.name = object.name;
-        if (object.status != undefined)
+        if (!isUndefined(object.status))
             this.status = object.status;
         if(object.specialization && !(object.specialization instanceof Object)){
             this.specializationLink = object.specialization;

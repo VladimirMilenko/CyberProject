@@ -1,11 +1,13 @@
 import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {CyberObejctType} from "./BasicTypes/CyberObjectTypes";
 import {observable, computed} from "mobx";
-
 import moment from 'moment';
+import {StageModel} from "./StageModel";
+import {isUndefined} from "util";
 import Moment = moment.Moment;
 
-import {StageModel} from "./StageModel";
+
+
 export class BatchModel extends CyberObjectInstance {
 
     @observable expanded:boolean = true;
@@ -19,13 +21,13 @@ export class BatchModel extends CyberObjectInstance {
 
     fromJson(object: any) {
         super.fromJson(object);
-        if (object.title)
+        if (!isUndefined(object.title))
             this.title = object.title;
-        if (object.plannedEndDate)
+        if (!isUndefined(object.plannedEndDate))
             this.plannedEndDate = object.plannedEndDate;
-        if (object.plannedStartDate)
+        if (!isUndefined(object.plannedStartDate))
             this.plannedStartDate = object.plannedStartDate;
-        if (object.stageSet) {
+        if (!isUndefined(object.stageSet)) {
             if (object.stageSet.length > 0) {
                 for (let stageObject of object.stageSet) {
                    // let stageModel = new StageModel(CyberObejctType.Stage);

@@ -2,6 +2,7 @@ import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {observable, computed} from "mobx";
 import {WorkerModel} from "./WorkerModel";
 import {EquipmentModel} from "./EquipmentModel";
+import {isUndefined} from 'util';
 export class SpecializationModel extends CyberObjectInstance {
     @observable name;
     @observable workersLinks: Array<string> = [];
@@ -9,9 +10,9 @@ export class SpecializationModel extends CyberObjectInstance {
 
     fromJson(object: any) {
         super.fromJson(object);
-        if (object.name != undefined)
+        if (!isUndefined(object.name))
             this.name = object.name;
-        if (object.workerSet) {
+        if (!isUndefined(object.workerSet)) {
             for (let worker of object.workerSet) {
                 if (worker instanceof Object) {
                     let workerInstance = this.store.createWorker(worker);
@@ -20,7 +21,7 @@ export class SpecializationModel extends CyberObjectInstance {
                     this.workersLinks.push(worker);
             }
         }
-        if (object.equipmentSet) {
+        if (!isUndefined(object.equipmentSet)) {
             for (let equipment of object.equipmentSet) {
                 if (equipment instanceof Object) {
                     this.store.createEquipment(equipment);

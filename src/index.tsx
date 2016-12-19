@@ -12,6 +12,9 @@ import {CyberPlantTransportLayer} from "./TransportLayers/CyberPlantTransportLay
 import {WorkerModel} from "./Models/WorkerModel";
 import {CyberObejctType} from "./Models/BasicTypes/CyberObjectTypes";
 import axios from 'axios';
+import Button from "antd/lib/button/button";
+import Card from "antd/lib/card/";
+import './styles/antd.scss';
 
 
 class AppState {
@@ -41,12 +44,12 @@ class TimerView extends React.Component<{appState: AppState}, {}> {
                     console.log(worker.specialization);
                 }
             });
-        axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=2')
+        axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=3')
             .then((response) => {
                 if (response.data) {
                     let data: any = response.data;
                     for (let route of data.instances) {
-                        if(route instanceof Object){
+                        if (route instanceof Object) {
                             let routeInstance = store.createRoute(route);
                             console.log('New Route Instance');
                             console.log(routeInstance);
@@ -62,17 +65,17 @@ class TimerView extends React.Component<{appState: AppState}, {}> {
             <div>
                 <Row>
                     <Col span={24}>
-                        <button onClick={this.onReset}>
-                            Seconds passed: {this.props.appState.timer}
-                        </button>
+                        <Card bordered={true}>
+                            Test
+                        </Card>
+                    </Col>
+                    <Col span={12}>
+                    </Col>
+                    <Col span={12}>
                     </Col>
                 </Row>
             </div>
         );
-    }
-
-    onReset = () => {
-        this.props.appState.resetTimer();
     }
 }
 ;
