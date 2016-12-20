@@ -1,7 +1,8 @@
 import {CyberObjectInstance} from "../../Models/BasicTypes/CyberObjectInstance";
 import {Predicate, and} from "./CyberObjectsStore";
+import {observable} from "mobx";
 export class Store<T extends CyberObjectInstance> {
-    objects: Array<T> = [];
+    @observable objects: Array<T> = [];
 
     addObject(object: T): void {
         this.objects.push(object);

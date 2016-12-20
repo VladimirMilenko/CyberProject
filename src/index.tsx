@@ -1,22 +1,36 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {observable} from 'mobx';
-import {observer} from 'mobx-react';
-import {AbstractStatus} from "./StatusParameters/AbstractStatus";
-import {PipelineStatus} from "./StatusParameters/PipelineStatus";
+import {observer, Provider} from 'mobx-react';
 import Row from "antd/lib/grid/row";
 import Col from "antd/lib/grid/col";
 import {CyberObjectsStore} from "./Stores/CyberObjectsStore/CyberObjectsStore";
-import {Route} from "./Models/RouteModel";
 import {CyberPlantTransportLayer} from "./TransportLayers/CyberPlantTransportLayer";
-import {WorkerModel} from "./Models/WorkerModel";
-import {CyberObejctType} from "./Models/BasicTypes/CyberObjectTypes";
 import axios from 'axios';
-import Button from "antd/lib/button/button";
 import Card from "antd/lib/card/";
-import './styles/antd.scss';
+import './static/styles/core.scss';
+import {GantTable} from "./Components/GantTable/GantTable";
+import {TaskTableViewMode} from "./Stores/TaskTable/TaskTableViewMode";
+import {ViewSettings} from "./Stores/ViewSettingsStore/ViewSettings";
 
-
+let store = new CyberObjectsStore();
+let taskTableViewMode = new TaskTableViewMode();
+store.transportLayer = new CyberPlantTransportLayer(() => {
+}, () => {
+});
+store.transportLayer.fetchWorkers()
+    .then((response) => {
+        for (let instance of response.data.instances) {
+            let worker = store.createWorker(instance);
+            console.log(worker.specialization);
+        }
+    });
+let viewSettings = new ViewSettings(store);
+const stores = {
+    cyberObjectsStore:store,
+    taskTableViewMode,
+    viewSettings
+};
 class AppState {
     @observable timer = 0;
 
@@ -33,17 +47,7 @@ class AppState {
 @observer
 class TimerView extends React.Component<{appState: AppState}, {}> {
     componentDidMount() {
-        let store = new CyberObjectsStore();
-        store.transportLayer = new CyberPlantTransportLayer(() => {
-        }, () => {
-        });
-        store.transportLayer.fetchWorkers()
-            .then((response) => {
-                for (let instance of response.data.instances) {
-                    let worker = store.createWorker(instance);
-                    console.log(worker.specialization);
-                }
-            });
+
         axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=3')
             .then((response) => {
                 if (response.data) {
@@ -57,24 +61,42 @@ class TimerView extends React.Component<{appState: AppState}, {}> {
                     }
                 }
             });
+        axios.get('http://sandbox.vpered.cyber-platform.ru/api/cyberobjects/instances/?uuid=adc6e5fa-8327-46b2-a7f8-c5056a9229a4&go_deeper_level=2')
+            .then((response)=>{
+                if(response.data){
+                    let data:any = response.data;
+                    for(let instance of data.instances){
+                        if(instance.batchSet){
+                            for(let batch of instance.batchSet){
+                                let batchInstance = store.createBatch(batch);
+                                console.log(batchInstance);
+                            }
+                        }
+                    }
+                }
+            })
     }
 
     render() {
 
         return (
-            <div>
-                <Row>
-                    <Col span={24}>
-                        <Card bordered={true}>
-                            Test
-                        </Card>
-                    </Col>
-                    <Col span={12}>
-                    </Col>
-                    <Col span={12}>
-                    </Col>
-                </Row>
-            </div>
+            <Provider {...stores}>
+                <div>
+                    <Row>
+                        <Col span={24}>
+                            <Card bordered={true}>
+                                Test
+                            </Card>
+                        </Col>
+                        <Col span={24} style={{marginTop:20}}>
+                            <Card bordered={true}>
+                                <GantTable />
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            </Provider>
+
         );
     }
 }

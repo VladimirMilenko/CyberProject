@@ -1,12 +1,18 @@
 import {observable} from "mobx";
 import {AbstractViewProperty} from "./ViewProperties/AbstractViewProperty";
-import {BatchCode} from "./ViewProperties/BatchCode";
+import {BatchViewProperty} from "./ViewProperties/BatchProps/BatchViewProperty";
+import {BatchTitleVP} from "./ViewProperties/BatchProps/BatchTitleVP";
+import {BatchPlannedStartDateVP} from "./ViewProperties/BatchProps/BatchPlannedStartDateVP";
+import {StageViewProperty} from "./ViewProperties/StageProps/StageViewProperty";
+import {StageTitle} from "./ViewProperties/StageProps/StageTitle";
 
 export class TaskTableViewMode {
-    @observable viewProperties:Array<AbstractViewProperty> = [];
+    @observable stageViewProperties:Array<StageViewProperty> = [];
+    @observable batchViewProperties:Array<BatchViewProperty> = [];
     constructor(){
-        this.viewProperties.push(new BatchCode());
-        this.viewProperties.push(new BatchCode());
+        this.batchViewProperties.push(new BatchTitleVP());
+        this.batchViewProperties.push(new BatchPlannedStartDateVP());
+        this.stageViewProperties.push(new StageTitle());
     }
 }
 

@@ -1,6 +1,6 @@
 import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {observable, computed} from "mobx";
-import {StageModel} from "./StageModel";
+import {RouteStageModel} from "./RouteStageModel";
 import {isUndefined} from "util";
 export class Route extends CyberObjectInstance {
     @observable name: string;
@@ -28,11 +28,11 @@ export class Route extends CyberObjectInstance {
         }
     }
 
-    @computed get routeStageSet(): Array<StageModel> {
-        let stages: Array<StageModel> = [];
+    @computed get routeStageSet(): Array<RouteStageModel> {
+        let stages: Array<RouteStageModel> = [];
         for (let stage of this.routeStageSetLinks) {
             let stageInstance = this.store.cyberObjectsStore.get(stage);
-            if (stageInstance instanceof StageModel)
+            if (stageInstance instanceof RouteStageModel)
                 stages.push(stageInstance)
         }
         return stages;

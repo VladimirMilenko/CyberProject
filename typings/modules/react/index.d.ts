@@ -5,9 +5,8 @@ declare module 'react' {
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export = React;
 export as namespace React;
+export = React;
 
 namespace React {
 
