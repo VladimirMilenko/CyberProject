@@ -35,6 +35,7 @@ interface GantTaskProps {
     store: CyberObjectsStore;
     style: any;
 }
+
 interface GTProps{
     cyberObjectsStore?:CyberObjectsStore;
     viewSettings?:ViewSettings;
@@ -50,6 +51,8 @@ interface GTState{
     resizing?:boolean;
     resizedFor?:number;
 }
+
+
 
 @inject("viewSettings","cyberObjectsStore")
 @observer

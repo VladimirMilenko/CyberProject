@@ -15,6 +15,7 @@ import {TaskTableViewMode} from "./Stores/TaskTable/TaskTableViewMode";
 import {GantChart} from "./Components/GantChart";
 import Button from "antd/lib/button/button";
 import Slider from "antd/lib/slider";
+import {getFlatDataFromTree} from "./TaskTree/utils/tree-data-utils";
 
 const marks = {
     4: 'День',
@@ -86,7 +87,12 @@ class TimerView extends React.Component<{appState: AppState}, {}> {
     }
 
     render() {
-
+        let rows = getFlatDataFromTree({
+            treeData:store.gantTree,getNodeKey:({node:_node,treeIndex})=>{
+                return _node.content.uuid;
+            },
+            ignoreCollapsed:true
+        });
         return (
             <Provider {...stores}>
                 <div>
@@ -143,7 +149,7 @@ class TimerView extends React.Component<{appState: AppState}, {}> {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col span={3}>
+                                    <Col span={3} style={{position:'relative', overflow:'hidden',overflowX:'auto', height:rows.length*31+60}}>
                                         <GantTable />
                                     </Col>
                                     <Col>

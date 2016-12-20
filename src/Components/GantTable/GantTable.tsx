@@ -8,6 +8,7 @@ import {BatchRenderer} from "./BatchRenderer";
 import {HeaderRenderer} from "./HeaderRenderer";
 import {BatchStageModel} from "../../Models/BatchStageModel";
 import {StageRenderer} from "./StageRenderer";
+import {getFlatDataFromTree} from "../../TaskTree/utils/tree-data-utils";
 interface GantTableProps{
     cyberObjectsStore?:CyberObjectsStore;
     taskTableViewMode?:TaskTableViewMode;
@@ -17,6 +18,7 @@ interface GantTableProps{
 export class GantTable extends React.Component<GantTableProps,{}>{
     render(){
         let {batchViewProperties,stageViewProperties} = this.props.taskTableViewMode;
+
         return(
             <table style={{borderSpacing: '0', borderCollapse: 'collapse'}}>
                 <thead>
