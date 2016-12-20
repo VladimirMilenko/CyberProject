@@ -10,6 +10,7 @@ import {AbstractObjectsStore} from "./AbstractObjectsStore";
 import {EquipmentModel} from "../../Models/EquipmentModel";
 import {BatchModel} from "../../Models/BatchModel";
 import {BatchStageModel} from "../../Models/BatchStageModel";
+import {ViewSettings} from "../ViewSettingsStore/ViewSettings";
 
 export class CyberObjectsStore {
     observers = {};
@@ -26,7 +27,7 @@ export class CyberObjectsStore {
     batchStages:Store<BatchStageModel>;
 
 
-
+    viewSettings:ViewSettings;
     transportLayer: AbstractTransportLayer;
 
     constructor() {
@@ -38,7 +39,9 @@ export class CyberObjectsStore {
         this.batches = new Store<BatchModel>();
         this.batchStages = new Store<BatchStageModel>();
     }
-
+    setViewSettings(vs:ViewSettings){
+        this.viewSettings = vs;
+    }
     createBatch(jsonObject:any):BatchModel{
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
         if(possibleInstance instanceof BatchModel){

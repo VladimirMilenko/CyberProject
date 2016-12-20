@@ -19,6 +19,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
         for(let stage of this.stageSet){
             stage.dragged(hours);
         }
+        this.updatePosition();
     }
 
     resized(direction:string,hours: number): void {
@@ -64,6 +65,11 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
             }
         }
     }
+    updatePosition() {
+        if (this.rndObject && this.rndObject.updatePosition) {
+            this.rndObject.updatePosition({x: this.offsetX, y: 0});
+        }
+    }
     @computed get buildTreeObject():GantTreeObject{
         let children = [];
         for(let stage of this.stageSet){
@@ -91,6 +97,17 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @computed get formattedStartDate(){
         return this.plannedStartDate.format("DD.MM.YYYY");
     }
+
+    @computed get widthInPx() {
+        let hours = this.plannedEndDate.diff(this.plannedStartDate, 'hours');
+        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth + 2)/24));
+    }
+    @computed get offsetX(){
+        let hours = Math.ceil(this.plannedStartDate.diff(this.store.viewSettings.tableStart, 'hours'));
+        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth + 2) / 24));
+
+    }
+
     @computed get toJson() {
         let {uuid, plannedStartDate, plannedEndDate, title} = this;
         return {

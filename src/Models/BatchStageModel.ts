@@ -8,13 +8,14 @@ import {GantModel, Selectable} from "../Components/GantTask";
 
 
 export class BatchStageModel extends CyberObjectInstance implements GantModel, Selectable{
-    howered: boolean;
-    selected: boolean;
+    @observable howered: boolean;
+    @observable selected: boolean;
     rndObject: any;
 
     dragged(hours: number): void {
         this.plannedEndDate = moment(this.plannedEndDate.add(hours,'h'));
         this.plannedStartDate = moment(this.plannedStartDate.add(hours,'h'));
+        this.updatePosition();
     }
 
     resized(direction:string,hours: number): void {
@@ -39,9 +40,9 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
         if (!isUndefined(object.title))
             this.title = object.title;
         if (!isUndefined(object.plannedEndDate))
-            this.plannedEndDate = object.plannedEndDate;
+            this.plannedEndDate = moment(object.plannedEndDate);
         if (!isUndefined(object.plannedStartDate))
-            this.plannedStartDate = object.plannedStartDate;
+            this.plannedStartDate = moment(object.plannedStartDate);
     }
     @computed get buildTreeObject(){
         let children = [];
@@ -51,12 +52,26 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
             children
         }
     }
+    updatePosition(){
+        if(this.rndObject && this.rndObject.updatePosition){
+            this.rndObject.updatePosition({x: this.offsetX, y: 0});
+        }
+    }
     @computed get formattedEndDate(){
         return this.plannedEndDate.format("DD.MM.YYYY");
     }
 
     @computed get formattedStartDate(){
         return this.plannedStartDate.format("DD.MM.YYYY");
+    }
+    @computed get widthInPx() {
+        let hours = this.plannedEndDate.diff(this.plannedStartDate, 'hours');
+        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth + 2)/24));
+    }
+    @computed get offsetX(){
+        let hours = Math.ceil(this.plannedStartDate.diff(this.store.viewSettings.tableStart, 'hours'));
+        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth + 2) / 24));
+
     }
     @computed get toJson() {
         let {uuid, plannedStartDate, plannedEndDate, title} = this;

@@ -10,9 +10,16 @@ import axios from 'axios';
 import Card from "antd/lib/card/";
 import './static/styles/core.scss';
 import {GantTable} from "./Components/GantTable/GantTable";
-import {TaskTableViewMode} from "./Stores/TaskTable/TaskTableViewMode";
 import {ViewSettings} from "./Stores/ViewSettingsStore/ViewSettings";
+import {TaskTableViewMode} from "./Stores/TaskTable/TaskTableViewMode";
+import {GantChart} from "./Components/GantChart";
+import Button from "antd/lib/button/button";
+import Slider from "antd/lib/slider";
 
+const marks = {
+    4: 'День',
+    24: 'Час',
+};
 let store = new CyberObjectsStore();
 let taskTableViewMode = new TaskTableViewMode();
 store.transportLayer = new CyberPlantTransportLayer(() => {
@@ -26,10 +33,11 @@ store.transportLayer.fetchWorkers()
         }
     });
 let viewSettings = new ViewSettings(store);
+store.setViewSettings(viewSettings);
 const stores = {
     cyberObjectsStore:store,
-    taskTableViewMode,
-    viewSettings
+    taskTableViewMode:taskTableViewMode,
+    viewSettings:viewSettings
 };
 class AppState {
     @observable timer = 0;
@@ -90,7 +98,58 @@ class TimerView extends React.Component<{appState: AppState}, {}> {
                         </Col>
                         <Col span={24} style={{marginTop:20}}>
                             <Card bordered={true}>
-                                <GantTable />
+                                <Row>
+                                    <Col span={12}>
+                                        <div className="widget__header_float_left" style={{padding: '35px 60px'}}>
+                                            <span className="options__item_squared options__item_squared_state_active">
+                                                П
+                                            </span>
+                                            <span className="options__item_squared" style={{marginLeft: '10px'}}>
+                                                1
+                                            </span>
+                                            <span className="options__item_squared" style={{marginLeft: '10px'}}>
+                                                2
+                                            </span>
+                                            <span className="options__item_squared" style={{marginLeft: '10px'}}>
+                                                3
+                                            </span>
+                                            <span className="options__item_squared" style={{marginLeft: '10px'}}>
+                                                Все
+                                            </span>
+                                            <span style={{marginLeft: '50px', fontSize: '15px', fontWeight: 'bold'}}>
+                                                План производства
+                                            </span>
+                                        </div>
+                                    </Col>
+                                    <Col span={12}>
+                                        <div className="widget__header_float_right" style={{padding: '35px 60px'}}>
+                                            <Button size="large" type="primary" onClick={(e) => console.log('click')}>Добавить</Button>
+                                            <Slider  max={24} min={4} marks={marks} step={null} defaultValue={4} onAfterChange={(val)=>{
+                                                if(val==4){
+                                                    viewSettings.headerSubItems =4;
+                                                    viewSettings.cellWidth = 72;
+                                                } else{
+                                                    viewSettings.headerSubItems =24;
+                                                    viewSettings.cellWidth = 450;
+                                                }
+                                                for(let task of store.batches.objects){
+                                                    task.updatePosition();
+                                                }
+                                                for(let task of store.batchStages.objects){
+                                                    task.updatePosition();
+                                                }
+                                            }} />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={3}>
+                                        <GantTable />
+                                    </Col>
+                                    <Col>
+                                        <GantChart />
+                                    </Col>
+                                </Row>
                             </Card>
                         </Col>
                     </Row>

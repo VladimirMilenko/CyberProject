@@ -2,15 +2,21 @@ import {BatchViewProperty} from "./BatchViewProperty";
 import {ViewPropertyType} from "../AbstractViewProperty";
 import React,{ReactElement} from 'react';
 import {BatchModel} from "../../../../Models/BatchModel";
+import {observable} from "mobx";
 export class BatchPlannedStartDateVP extends BatchViewProperty{
-    requried: boolean = true;
-    enabled: boolean = true;
+    requried: boolean = false;
+    @observable enabled: boolean = true;
     viewPropertyType: ViewPropertyType;
     renderHeader(): ReactElement<any> {
-        return <td className="rst__table__cell__header">Дата начала</td>;
+        return <td key="batchPlannedStartDate" className="rst__table__cell__header">Дата начала</td>;
     }
     render(object: BatchModel): ReactElement<any> {
-        return <td className="rst__table__cell"><span>{object.formattedStartDate}</span></td>;
+        let background = 'white';
+        if(object.howered)
+            background = '#ffecbe';
+        if(object.selected)
+            background = '#ffc842';
+        return <td key="batchPlannedStartDate" className="rst__table__cell" style={{background}}><span>{object.formattedStartDate}</span></td>;
     }
 
 }

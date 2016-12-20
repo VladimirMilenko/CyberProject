@@ -15,7 +15,6 @@ export class BatchRenderer extends React.Component<GantTableBatchRendererProps,{
 
     hoverObject(){
         this.props.viewSettings.setHoweredObject(this.props.batch.uuid);
-        console.log('over');
     }
     removeHover(){
         this.props.viewSettings.setHoweredObject('');
@@ -27,7 +26,7 @@ export class BatchRenderer extends React.Component<GantTableBatchRendererProps,{
         this.props.viewSettings.setSelectedObject('');
     }
     render(){
-        let {stageViewProperties,batchViewProperties} = this.props.taskTableViewMode;
+        let {stageViewProperties,batchViewProperties,batchDelimiter} = this.props.taskTableViewMode;
         let {batch} = this.props;
         let batchCells: Array<ReactElement<any>> = [];
         let enabledBatchViews = batchViewProperties.filter(view => view.enabled);
@@ -36,14 +35,15 @@ export class BatchRenderer extends React.Component<GantTableBatchRendererProps,{
                 batchViewMode.render(batch)
             )
         }
+        batchCells.push(batchDelimiter.render(batch));
         let enabledStageViews = stageViewProperties.filter(view=>view.enabled);
-        for(let stageViewMode of enabledStageViews){
+        enabledStageViews.map((stageViewMode,index)=>{
             batchCells.push(
-                <td className="rst__table__cell"/>
+                <td key={`stageView-${index}`} className="rst__table__cell"/>
             )
-        }
+        });
         return(
-            <tr onMouseOver={(e)=>this.hoverObject()} onMouseLeave={(e)=>this.removeHover()}>
+            <tr onClick={(e)=>this.selectObject()} onMouseOver={(e)=>this.hoverObject()} onMouseLeave={(e)=>this.removeHover()}>
                 {batchCells}
             </tr>
         )

@@ -10,7 +10,7 @@ interface GantTableHeaderRendererProps{
 @observer
 export class HeaderRenderer extends React.Component<GantTableHeaderRendererProps,{}>{
     render(){
-        let {stageViewProperties,batchViewProperties} = this.props.taskTableViewMode;
+        let {stageViewProperties,batchViewProperties,batchDelimiter} = this.props.taskTableViewMode;
         let rowCells: Array<ReactElement<any>> = [];
         let enabledBatchViews = batchViewProperties.filter(view => view.enabled);
         for (let batchViewMode of enabledBatchViews) {
@@ -18,6 +18,8 @@ export class HeaderRenderer extends React.Component<GantTableHeaderRendererProps
                 batchViewMode.renderHeader()
             )
         }
+        rowCells.push(batchDelimiter.renderHeader());
+
         let enabledStageViews = stageViewProperties.filter(view=>view.enabled);
         for(let stageViewMode of enabledStageViews){
             rowCells.push(
