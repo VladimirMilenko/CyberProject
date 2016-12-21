@@ -3,12 +3,16 @@ import {observable, computed} from "mobx";
 import {inject} from "mobx-react/custom";
 import {SpecializationModel} from "./SpecializationModel";
 import {isUndefined} from "util";
+import moment from 'moment/moment';
+import Moment = moment.Moment;
 
 export class WorkerModel extends CyberObjectInstance {
     @observable name: string;
     @observable status: string;
 
     @observable specializationLink;
+    @observable nonWorkingDaysSet:Array<string> = ["28.12.2016","1.1.2017"];
+
 
     fromJson(object: any) {
         super.fromJson(object);
@@ -20,7 +24,13 @@ export class WorkerModel extends CyberObjectInstance {
             this.specializationLink = object.specialization;
         }
     }
-
+    isWorkingAtDate(date:Moment):boolean{
+        for(let day of this.nonWorkingDaysSet){
+            if(date.isSame(moment(day,"DD.MM.YYYY"),'day'))
+                return false;
+        }
+        return true;
+    }
     get specialization(): SpecializationModel | undefined {
         let instance = this.store.cyberObjectsStore.get(this.specializationLink);
         if(instance instanceof SpecializationModel){
