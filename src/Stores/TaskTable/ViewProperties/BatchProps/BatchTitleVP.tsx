@@ -4,10 +4,17 @@ import {BatchModel} from "../../../../Models/BatchModel";
 import React,{ReactElement} from "react";
 import {observable} from "mobx";
 
+const containerStyles = require('./styles/table.scss');
+
+const containerStyle ={
+    position:'relative',
+    paddingRight:30
+};
 const spanStyle = {
     paddingTop:10,
     paddingBottom:10,
-    float:'right'
+    position:'absolute',
+    right:0
 };
 
 export class BatchTitleVP extends BatchViewProperty{
@@ -26,7 +33,7 @@ export class BatchTitleVP extends BatchViewProperty{
             background = '#ffc842';
         if(object.batchStageLinks.length>0){
             if(object.expanded){
-                return(<td className="rst__table__cell rst__table__cell__title"  key="batchTitle" style={{background:background}}>
+                return(<td className="rst__table__cell rst__table__cell__title"  key="batchTitle" style={{...containerStyle, background:background}}>
                     {object.title}
                     <span style={spanStyle} className="icon icon-arrows_up" onClick={(e)=>{
                         object.expanded = false;
@@ -35,7 +42,7 @@ export class BatchTitleVP extends BatchViewProperty{
                     </td>
                 )
             }else{
-                return(<td className="rst__table__cell  rst__table__cell__title"  key="batchTitle" style={{background:background}}>
+                return(<td className="rst__table__cell  rst__table__cell__title"  key="batchTitle" style={{...containerStyle, background:background}}>
                         {object.title}
                         <span style={spanStyle} className="icon icon-arrows_down" onClick={(e)=>{
                         object.expanded = true;
@@ -46,7 +53,7 @@ export class BatchTitleVP extends BatchViewProperty{
             }
         }
         return (
-            <td className="rst__table__cell  rst__table__cell__title" key="batchTitle" style={{background:background}}>{object.title}
+            <td className="rst__table__cell  rst__table__cell__title" key="batchTitle" style={{...containerStyle, background:background}}>{object.title}
             </td>
         )
     }

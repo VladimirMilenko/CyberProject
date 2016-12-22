@@ -30,6 +30,7 @@
     "@types/react": "^0.14.36",
     "@types/react-dom": "^0.14.17",
     "antd": "^2.5.2",
+    "autobahn": "^0.11.1",
     "awesome-typescript-loader": "^3.0.0-beta.10",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^1.0.1",
