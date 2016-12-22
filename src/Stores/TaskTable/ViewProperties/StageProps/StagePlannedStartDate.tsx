@@ -3,7 +3,7 @@ import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
 import ReactElement = React.ReactElement;
-export class StageTitle extends StageViewProperty{
+export class StagePlannedStartDate extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;
     viewPropertyType: ViewPropertyType;
@@ -16,12 +16,12 @@ export class StageTitle extends StageViewProperty{
             background = '#40ffad';
 
         return (
-            <td key="stageTitle" style={{background:background}} className="rst__table__cell">{object.title}</td>
+            <td key="stagePlannedStartDate" style={{background:background}} className="rst__table__cell">{object.formattedStartDate}</td>
         );
     }
 
     renderHeader(): ReactElement<any> {
-        return <td key="stageTitle" className="rst__table__cell__header">Операция</td> ;
+        return <td key="stagePlannedStartDate" className="rst__table__cell__header">Дата начала</td> ;
     }
 
 }

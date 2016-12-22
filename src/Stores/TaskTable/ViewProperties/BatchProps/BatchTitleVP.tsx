@@ -5,14 +5,16 @@ import React,{ReactElement} from "react";
 import {observable} from "mobx";
 
 const spanStyle = {
-    marginLeft:15
+    paddingTop:10,
+    paddingBottom:10,
+    float:'right'
 };
 
 export class BatchTitleVP extends BatchViewProperty{
     renderHeader(): ReactElement<any> {
-        return <td key="batchTitle" className="rst__table__cell__header">Название</td>;
+        return <td key="batchTitle" className="rst__table__cell__header">Код партии</td>;
     }
-    requried: boolean = true;
+    required: boolean = true;
     @observable enabled: boolean = true;
     viewPropertyType: ViewPropertyType = ViewPropertyType.Text;
 
@@ -22,9 +24,9 @@ export class BatchTitleVP extends BatchViewProperty{
             background = '#ffecbe';
         if(object.selected)
             background = '#ffc842';
-        if(object.stageSetLinks.length>0){
+        if(object.batchStageLinks.length>0){
             if(object.expanded){
-                return(<td className="rst__table__cell"  key="batchTitle" style={{background:background}}>
+                return(<td className="rst__table__cell rst__table__cell__title"  key="batchTitle" style={{background:background}}>
                     {object.title}
                     <span style={spanStyle} className="icon icon-arrows_up" onClick={(e)=>{
                         object.expanded = false;
@@ -33,7 +35,7 @@ export class BatchTitleVP extends BatchViewProperty{
                     </td>
                 )
             }else{
-                return(<td className="rst__table__cell"  key="batchTitle" style={{background:background}}>
+                return(<td className="rst__table__cell  rst__table__cell__title"  key="batchTitle" style={{background:background}}>
                         {object.title}
                         <span style={spanStyle} className="icon icon-arrows_down" onClick={(e)=>{
                         object.expanded = true;
@@ -44,8 +46,7 @@ export class BatchTitleVP extends BatchViewProperty{
             }
         }
         return (
-            <td className="rst__table__cell" key="batchTitle" style={{background:background}}>{object.title}
-            <span style={{marginLeft:spanStyle.marginLeft+10}}/>
+            <td className="rst__table__cell  rst__table__cell__title" key="batchTitle" style={{background:background}}>{object.title}
             </td>
         )
     }

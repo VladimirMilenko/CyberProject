@@ -7,6 +7,9 @@ import {isUndefined} from "util";
 import Moment = moment.Moment;
 import {GantModel, Selectable} from "../Components/GantTask";
 import {GantTreeObject} from "../Stores/CyberObjectsStore/CyberObjectsStore";
+import {WorkerModel} from "./WorkerModel";
+import {EquipmentModel} from "./EquipmentModel";
+import {Route} from "./RouteModel";
 
 
 export class BatchModel extends CyberObjectInstance implements GantModel, Selectable {
@@ -16,7 +19,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     dragged(hours: number): void {
         this.plannedEndDate = moment(this.plannedEndDate.add(hours, 'h'));
         this.plannedStartDate = moment(this.plannedStartDate.add(hours, 'h'));
-        for (let stage of this.stageSet) {
+        for (let stage of this.batchStageSet) {
             stage.dragged(hours);
         }
         this.updatePosition();
@@ -44,10 +47,24 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @observable plannedStartDate: Moment;
     @observable detailsNumber: number;
     @observable status: string;
-    @observable code: string;
+    @observable code: string = "Не присвоен";
     @observable name: string;
-    @observable batchStageLink: string;
+    @observable batchStageLinks: Array<string> = [];
 
+    @observable workerLink: string;
+    @observable equipmentLink: string;
+
+    @computed get worker(): WorkerModel {
+        return null;
+    }
+
+    @computed get equipment(): EquipmentModel {
+        return null;
+    }
+
+    @computed get route(): Route {
+        return this.store.routes.find([route => route.code == this.code]);
+    }
 
     @observable stageSetLinks: Array<string> = [];
 
@@ -71,12 +88,15 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
                 }
             }
         }
-        if (!isUndefined(object.batchStage)) {
-            if (object.batchStage instanceof Object) {
-                let instance = this.store.createBatch(object.batchStage);
-                this.batchStageLink = instance.uuid;
-            } else {
-                this.batchStageLink = object.batchStage;
+        if (!isUndefined(object.batchStageSet)) {
+            for (let stage of object.batchStageSet) {
+                if (stage instanceof Object) {
+                    let instance = this.store.createBatchStage(stage);
+                    this.batchStageLinks.push(instance.uuid);
+                } else {
+                    this.batchStageLinks.push(stage);
+
+                }
             }
         }
         if (!isUndefined(object.code))
@@ -85,6 +105,8 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
             this.title = object.name;
         if (!isUndefined(object.status))
             this.status = object.status;
+        this.updatePosition();
+        this.autoUpdate = true;
     }
 
     updatePosition() {
@@ -95,7 +117,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
 
     @computed get buildTreeObject(): GantTreeObject {
         let children = [];
-        for (let stage of this.stageSet) {
+        for (let stage of this.batchStageSet) {
             children.push(stage.buildTreeObject);
         }
         return {
@@ -105,11 +127,21 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
         }
     }
 
-    @computed get batchStage(): BatchModel {
-        let instance = this.store.cyberObjectsStore.get(this.batchStageLink);
-        if(instance instanceof  BatchModel)
-            return instance;
-        return undefined;
+    @computed get batchStageSet(): Array<BatchStageModel> {
+        let result: Array<BatchStageModel> = [];
+        for (let link of this.batchStageLinks) {
+            let instance = this.store.cyberObjectsStore.get(link);
+            if (instance instanceof BatchStageModel)
+                result.push(instance);
+        }
+        result = result.sort((a, b) => {
+            if (parseInt(a.code) > parseInt(b.code))
+                return 1;
+            if (parseInt(a.code) < parseInt(b.code))
+                return -1;
+            return 0;
+        });
+        return result;
     }
 
     @computed get stageSet(): Array<BatchStageModel> {
@@ -132,12 +164,12 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
 
     @computed get widthInPx() {
         let hours = this.plannedEndDate.diff(this.plannedStartDate, 'hours');
-        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth + 2) / 24));
+        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth+2) / 24));
     }
 
     @computed get offsetX() {
         let hours = Math.ceil(this.plannedStartDate.diff(this.store.viewSettings.tableStart, 'hours'));
-        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth + 2) / 24));
+        return Math.abs(Math.abs(hours) * ((this.store.viewSettings.cellWidth+2) / 24));
 
     }
 

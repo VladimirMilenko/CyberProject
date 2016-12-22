@@ -32,7 +32,7 @@ export class GantChart extends React.Component<GCProps,{}>{
             ignoreCollapsed:true
         });
         return(
-            <div id="gant_wrapper" style={{...containerStyle,height:rows.length*31+60}}>
+            <div id="gant_wrapper" style={{...containerStyle,height:rows.length*31+160}}>
                 <div className="d-table" style={{
                     height:'100%',
                     width:viewSettings.rowWidth

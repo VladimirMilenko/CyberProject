@@ -26,6 +26,8 @@ export class Route extends CyberObjectInstance {
                 }
             }
         }
+        this.autoUpdate = true;
+
     }
 
     @computed get routeStageSet(): Array<RouteStageModel> {
@@ -35,6 +37,13 @@ export class Route extends CyberObjectInstance {
             if (stageInstance instanceof RouteStageModel)
                 stages.push(stageInstance)
         }
+        stages = stages.sort((a,b)=>{
+            if(parseInt(a.code)>parseInt(b.code))
+                return 1;
+            if(parseInt(a.code)<parseInt(b.code))
+                return -1;
+            return 0;
+        });
         return stages;
     }
 

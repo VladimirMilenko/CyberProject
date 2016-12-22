@@ -11,10 +11,15 @@ import {EquipmentModel} from "../../Models/EquipmentModel";
 import {BatchModel} from "../../Models/BatchModel";
 import {BatchStageModel} from "../../Models/BatchStageModel";
 import {ViewSettings} from "../ViewSettingsStore/ViewSettings";
+import AxiosXHR = Axios.AxiosXHR;
+import IPromise = Axios.IPromise;
+import {SiteModel} from "../../Models/SiteModel";
 
 export class CyberObjectsStore {
     observers = {};
 
+    @observable orderedBy:string;
+    @observable orderState:number = 1;
     cyberObjectsStore: AbstractObjectsStore = new AbstractObjectsStore();
 
     routes: Store<Route>;
@@ -22,12 +27,13 @@ export class CyberObjectsStore {
     specializations: Store<SpecializationModel>;
     equipments: Store<EquipmentModel>;
     routeStages: Store<RouteStageModel>;
+    sites:Store<SiteModel>;
 
-    batches:Store<BatchModel>;
-    batchStages:Store<BatchStageModel>;
+    batches: Store<BatchModel>;
+    batchStages: Store<BatchStageModel>;
 
 
-    viewSettings:ViewSettings;
+    viewSettings: ViewSettings;
     transportLayer: AbstractTransportLayer;
 
     constructor() {
@@ -38,13 +44,27 @@ export class CyberObjectsStore {
         this.equipments = new Store<EquipmentModel>();
         this.batches = new Store<BatchModel>();
         this.batchStages = new Store<BatchStageModel>();
+        this.sites = new Store<SiteModel>();
     }
-    setViewSettings(vs:ViewSettings){
+
+    setViewSettings(vs: ViewSettings) {
         this.viewSettings = vs;
     }
-    createBatch(jsonObject:any):BatchModel{
+    orderBy(property){
+        if(this.orderedBy == property)
+            this.orderState = -this.orderState;
+        this.orderedBy = property;
+        this.batches.objects = this.batches.objects.sort((a,b)=>{
+           if(a[property]>b[property])
+               return this.orderState;
+           if(a[property]<b[property])
+               return -1*this.orderState;
+           return 0;
+        });
+    }
+    createBatch(jsonObject: any): BatchModel {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof BatchModel){
+        if (possibleInstance instanceof BatchModel) {
             return possibleInstance;
         }
         let batchModel = new BatchModel(this);
@@ -54,9 +74,10 @@ export class CyberObjectsStore {
         this.addListenerToCyberObject(batchModel);
         return batchModel;
     }
-    createBatchStage(jsonObject:any):BatchStageModel{
+
+    createBatchStage(jsonObject: any): BatchStageModel {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof BatchStageModel){
+        if (possibleInstance instanceof BatchStageModel) {
             return possibleInstance;
         }
         let batchStageModel = new BatchStageModel(this);
@@ -66,9 +87,18 @@ export class CyberObjectsStore {
         this.addListenerToCyberObject(batchStageModel);
         return batchStageModel;
     }
+
+    async createBatchStageOnServer(jsonObject: any) {
+        return this.transportLayer.createObject('batchStage', jsonObject);
+    }
+
+    async createBatchOnServer(jsonObject: any) {
+        return this.transportLayer.createObject('batch', jsonObject);
+    }
+
     createWorker(jsonObject: any): WorkerModel {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof WorkerModel){
+        if (possibleInstance instanceof WorkerModel) {
             return possibleInstance;
         }
         let worker = new WorkerModel(this);
@@ -81,7 +111,7 @@ export class CyberObjectsStore {
 
     createEquipment(jsonObject: any): EquipmentModel {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof EquipmentModel){
+        if (possibleInstance instanceof EquipmentModel) {
             return possibleInstance;
         }
         let equipment = new EquipmentModel(this);
@@ -94,7 +124,7 @@ export class CyberObjectsStore {
 
     createRoute(jsonObject: any): Route {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof Route){
+        if (possibleInstance instanceof Route) {
             return possibleInstance;
         }
         let route = new Route(this);
@@ -107,7 +137,7 @@ export class CyberObjectsStore {
 
     createStage(jsonObject: any): RouteStageModel {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof RouteStageModel){
+        if (possibleInstance instanceof RouteStageModel) {
             return possibleInstance;
         }
         let stage = new RouteStageModel(this);
@@ -120,7 +150,7 @@ export class CyberObjectsStore {
 
     createSpecialization(jsonObject: any): SpecializationModel {
         let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
-        if(possibleInstance instanceof SpecializationModel){
+        if (possibleInstance instanceof SpecializationModel) {
             return possibleInstance;
         }
 
@@ -131,19 +161,32 @@ export class CyberObjectsStore {
         this.addListenerToCyberObject(specialization);
         return specialization;
     }
-
+    createSite(jsonObject:any):SiteModel{
+        let possibleInstance = this.cyberObjectsStore.get(jsonObject.uuid);
+        if(possibleInstance instanceof SiteModel)
+            return possibleInstance;
+        let site = new SiteModel(this);
+        site.fromJson(jsonObject);
+        this.cyberObjectsStore.add(site);
+        this.sites.addObject(site);
+        this.addListenerToCyberObject(site);
+        return site;
+    }
     addListenerToCyberObject(cyberObjectInstance: CyberObjectInstance) {
         this.observers[cyberObjectInstance.uuid] = reaction(
             "objectChangedReaction",
             () => cyberObjectInstance.toJson,
             serializedObject => {
-                    console.log(serializedObject);
+                console.log(serializedObject);
+                if(this.cyberObjectsStore.get(serializedObject.uuid).autoUpdate)
+                    this.transportLayer.updateObject(serializedObject);
             }
         );
     }
-    @computed get gantTree():Array<GantTreeObject>{
-        let tree:Array<GantTreeObject> = [];
-        for(let batch of this.batches.objects){
+
+    @computed get gantTree(): Array<GantTreeObject> {
+        let tree: Array<GantTreeObject> = [];
+        for (let batch of this.batches.objects) {
             tree.push(batch.buildTreeObject);
         }
         return tree;
@@ -158,21 +201,22 @@ export function and(predicates: Predicate<any>[]): Predicate<any> {
 }
 export type Predicate<T> = (item: T) => boolean;
 
-export class GantTreeObject{
-    content:BatchModel|BatchStageModel;
-    children:Array<GantTreeObject>;
-    expanded:boolean;
-    constructor(object:BatchModel|BatchStageModel){
-        if(object instanceof BatchModel){
+export class GantTreeObject {
+    content: BatchModel|BatchStageModel;
+    children: Array<GantTreeObject>;
+    expanded: boolean;
+
+    constructor(object: BatchModel|BatchStageModel) {
+        if (object instanceof BatchModel) {
             this.content = object;
             this.children = [];
-            for(let stage of object.stageSet){
+            for (let stage of object.stageSet) {
                 this.children.push(
                     new GantTreeObject(stage)
                 )
             }
         }
-        if(object instanceof BatchStageModel){
+        if (object instanceof BatchStageModel) {
             this.content = object;
             this.children = [];
         }

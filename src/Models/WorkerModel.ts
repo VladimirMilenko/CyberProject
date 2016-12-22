@@ -23,6 +23,8 @@ export class WorkerModel extends CyberObjectInstance {
         if(object.specialization && !(object.specialization instanceof Object)){
             this.specializationLink = object.specialization;
         }
+        this.autoUpdate = true;
+
     }
     isWorkingAtDate(date:Moment):boolean{
         for(let day of this.nonWorkingDaysSet){

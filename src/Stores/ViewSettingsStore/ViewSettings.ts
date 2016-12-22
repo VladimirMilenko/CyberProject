@@ -16,7 +16,7 @@ export class ViewSettings {
         year:2016
     };
     gantWrapper:number = null;
-    defaultCellWidth:number=72;
+    defaultCellWidth:number=70;
     @observable howeredUUID :string;
     @observable selectedUUID :string;
     @observable headerSubItems:number = 4;

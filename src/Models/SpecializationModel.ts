@@ -30,6 +30,8 @@ export class SpecializationModel extends CyberObjectInstance {
                     this.equipmentSetLinks.push(equipment);
             }
         }
+        this.autoUpdate = true;
+
     }
 
     @computed get workerSet(): Array<WorkerModel> {

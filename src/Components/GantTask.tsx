@@ -12,22 +12,22 @@ export const taskColor = '#95aabd';
 export const blockColor = 'rgba(118, 188, 239, 1)';
 
 export interface GantModel {
-    rndObject:any;
-    dragged(hours:number): void;
-    resized(direction:string, hours:number): void;
-    widthInPx:number;
-    offsetX:number;
+    rndObject: any;
+    dragged(hours: number): void;
+    resized(direction: string, hours: number): void;
+    widthInPx: number;
+    offsetX: number;
 }
-export interface Selectable{
-    selected:boolean;
-    howered:boolean;
+export interface Selectable {
+    selected: boolean;
+    howered: boolean;
 }
 
 interface TreeRow {
     path: Array<string>|Array<number>;
     content: BatchStageModel|BatchModel;
     children: Array<TreeRow>;
-    node:any;
+    node: any;
 }
 
 interface GantTaskProps {
@@ -36,37 +36,37 @@ interface GantTaskProps {
     style: any;
 }
 
-interface GTProps{
-    cyberObjectsStore?:CyberObjectsStore;
-    viewSettings?:ViewSettings;
-    task:BatchModel|BatchStageModel;
-    row:TreeRow;
-    style:any;
+interface GTProps {
+    cyberObjectsStore?: CyberObjectsStore;
+    viewSettings?: ViewSettings;
+    task: BatchModel|BatchStageModel;
+    row: TreeRow;
+    style: any;
 }
 
-interface GTState{
+interface GTState {
     dragging?: boolean;
     startX?: number;
-    resizeDirection?:string;
-    resizing?:boolean;
-    resizedFor?:number;
+    resizeDirection?: string;
+    resizing?: boolean;
+    resizedFor?: number;
 }
 
 
-
-@inject("viewSettings","cyberObjectsStore")
+@inject("viewSettings", "cyberObjectsStore")
 @observer
 export class GantTask extends React.Component<GTProps,GTState> {
-    constructor(){
+    constructor() {
         super();
         this.state = {
-            dragging:false,
-            startX:0,
-            resizeDirection:'',
-            resizing:false,
-            resizedFor:0
+            dragging: false,
+            startX: 0,
+            resizeDirection: '',
+            resizing: false,
+            resizedFor: 0
         }
     }
+
     dragStarted() {
         console.log('drag started');
         let rnd = this.props.task.rndObject;
@@ -88,11 +88,11 @@ export class GantTask extends React.Component<GTProps,GTState> {
         let viewMode = this.props.viewSettings;
         if (this.state.resizeDirection == 'right') {
             this.setState({
-                resizedFor: clientSize.width / ((viewMode.cellWidth + 2)/24)
+                resizedFor: clientSize.width / ((viewMode.cellWidth + 2) / 24)
             });
         } else {
             this.setState({
-                resizedFor: clientSize.width / ((viewMode.cellWidth + 2)/24)
+                resizedFor: clientSize.width / ((viewMode.cellWidth + 2) / 24)
             });
         }
     }
@@ -101,15 +101,15 @@ export class GantTask extends React.Component<GTProps,GTState> {
     dragStopped(e, d) {
         let startX = this.state.startX;
         let endX = this.props.task.rndObject.state.x;
-        let moved = Math.ceil((endX - startX) / ((this.props.viewSettings.cellWidth + 2)/24));
+        let moved = Math.ceil((endX - startX) / ((this.props.viewSettings.cellWidth + 2) / 24));
         if (moved != 0) {
             this.props.task.dragged(moved);
         }
         this.setState({dragging: false});
     }
 
-    render(){
-        let {task,row,style,viewSettings} = this.props;
+    render() {
+        let {task, row, style, viewSettings} = this.props;
         let showChildren = false;
         switch (row.path.length - 1) {
             case 0:
@@ -138,21 +138,23 @@ export class GantTask extends React.Component<GTProps,GTState> {
         }
 
         let background = '#edf2f6';
-        if(task instanceof BatchModel){
-            if(task.howered)
+        if (task instanceof BatchModel) {
+            if (task.howered)
                 background = "#ffecbe"
-            if(task.selected)
+            if (task.selected)
                 background = "#ffc842";
 
         }
-        if(task instanceof BatchStageModel){
-            if(task.howered)
+        if (task instanceof BatchStageModel) {
+            if (task.howered)
                 background = "#b8fde3"
-            if(task.selected)
+            if (task.selected)
                 background = "#40ffad";
 
         }
-        return(
+
+        let childStyle = {}
+        return (
             <div onMouseOver={(e)=>{
                 viewSettings.setHoweredObject(task.uuid);
             }} onMouseLeave={(e)=>{
@@ -212,9 +214,15 @@ export class GantTask extends React.Component<GTProps,GTState> {
                         position: 'absolute', top: '0', left: '0', height: '100%', width: '100%',
                         border: task.selected ? '1px solid black' : '0'
                     }}>
-                        {row.node.children.map((child)=>{
-                            return(
-                                <div key={`sub-${child.content.uuid}`} style={{width:child.content.widthInPx,height:task.selected?'14px':'16px',position:'absolute',left:(child.content.offsetX - task.offsetX),top:0,background:task instanceof BatchModel ? '#95aabd': 'yellow'}}>
+                        {row.node.children.map((child) => {
+                            return (
+                                <div key={`sub-${child.content.uuid}`}
+                                     style={{width:child.content.widthInPx,
+                                     height:task.selected?'14px':'16px',
+                                     position:'absolute',
+                                     left:(child.content.offsetX - task.offsetX),
+                                     top:0,
+                                     background:task instanceof BatchModel ? '#95aabd': 'yellow'}}>
                                 </div>
                             )
                         })}

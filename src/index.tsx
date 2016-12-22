@@ -24,21 +24,47 @@ import {FormProps, default as Form} from "antd/lib/form/Form";
 import {RouteStageModel} from "./Models/RouteStageModel";
 import {Route} from "./Models/RouteModel";
 import moment from 'moment/moment';
+import {SpecializationModel} from "./Models/SpecializationModel";
+import Moment = moment.Moment;
+import {WorkerModel} from "./Models/WorkerModel";
+import {EquipmentModel} from "./Models/EquipmentModel";
+import {isNullOrUndefined} from "util";
+import {SimpleCriticalPath} from "./CriticalPathConstruction/SimpleCriticalPath";
 
 const marks = {
     4: 'День',
     24: 'Час',
 };
 let store = new CyberObjectsStore();
-let taskTableViewMode = new TaskTableViewMode();
-store.transportLayer = new CyberPlantTransportLayer(() => {
-}, () => {
-});
+let simpleCriticalPath = new SimpleCriticalPath(store);
+let taskTableViewMode = new TaskTableViewMode(store);
+store.transportLayer = new CyberPlantTransportLayer(store, objectUpdated, objectCreated);
+store.transportLayer.connectToWS();
+
+export function objectUpdated(updateParams) {
+    let uuid = updateParams.cyberobjectInstanceUUID;
+    let type = updateParams.cyberobjectName;
+    let updatedData = updateParams.cyberobjectInstanceUpdatedData;
+    let instance = store.cyberObjectsStore.get(uuid);
+    instance.fromJson(updatedData);
+}
+export function objectCreated(createParams) {
+    let type = createParams.cyberobjectName;
+    let uuid = createParams.cyberobjectInstanceUUID;
+    let json = createParams.cyberobjectInstance;
+    switch (type) {
+        case "batch":
+            store.createBatch({...json, uuid: uuid});
+            break;
+        case "batchStage":
+            store.createBatchStage({...json, uuid: uuid});
+    }
+}
+
 store.transportLayer.fetchWorkers()
     .then((response) => {
         for (let instance of response.data.instances) {
             let worker = store.createWorker(instance);
-            console.log(worker.specialization);
         }
     });
 let viewSettings = new ViewSettings(store);
@@ -46,7 +72,8 @@ store.setViewSettings(viewSettings);
 const stores = {
     cyberObjectsStore: store,
     taskTableViewMode: taskTableViewMode,
-    viewSettings: viewSettings
+    viewSettings: viewSettings,
+    criticalPath: simpleCriticalPath
 };
 class AppState {
     @observable timer = 0;
@@ -75,55 +102,15 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
         };
     }
 
-    buildCriticalPath(route: Route) {
-        console.log(route);
-        let startDate = moment("21.12.2016", "DD.MM.YYYY");
-        let detailNumber = 10;
-        let currentDate = moment(startDate);
-
-        for (let stage of route.routeStageSet) {
-            let spec = stage.specialization;
-            let durationInHrs = stage.duration * detailNumber + stage.setupDuration;
-            let stageDurationInDays = Math.ceil(durationInHrs / 8);//stage duration in 8hr days
-            let realHours = 0;
-            while (realHours < durationInHrs) {
-                if(currentDate.isoWeekday()<6) {
-                    let workingEquipment = spec.equipmentSet.find(equip => equip.isWorkingAtDate(currentDate));
-                    if (workingEquipment) {
-                        let workingWorker = spec.workerSet.find(worker => worker.isWorkingAtDate(currentDate))
-                        if (workingWorker) {
-                            if (durationInHrs - realHours > 8)
-                                console.log(`Date: ${currentDate.format("DD.MM.YYYY")}, Equipment:${workingEquipment.name}, Worker:${workingWorker.name}. Time: 8:00-17:00`);
-                            else {
-                                let time = 8 + (durationInHrs - realHours);
-                                console.log(`Date: ${currentDate.format("DD.MM.YYYY")}, Equipment:${workingEquipment.name}, Worker:${workingWorker.name}. Time: 8:00-${time}:00`);
-                            }
-                        } else {
-                            stageDurationInDays++;
-                        }
-                    } else {
-                        stageDurationInDays++;
-                    }
-                realHours+=8;
-                }
-                currentDate = currentDate.add(1, 'd');
-            }
-
-        }
-    }
-
     componentDidMount() {
 
-        axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=3')
+        axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=4')
             .then((response) => {
                 if (response.data) {
                     let data: any = response.data;
                     for (let route of data.instances) {
                         if (route instanceof Object) {
                             let routeInstance = store.createRoute(route);
-                            this.buildCriticalPath(routeInstance);
-                            console.log('New Route Instance');
-                            console.log(routeInstance);
                         }
                     }
                 }
@@ -136,7 +123,6 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                         if (instance.batchSet) {
                             for (let batch of instance.batchSet) {
                                 let batchInstance = store.createBatch(batch);
-                                console.log(batchInstance);
                             }
                         }
                     }
@@ -163,7 +149,7 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                             </Col>
                             <Col span={24} style={{marginTop:20}}>
                                 <Card bordered={true}>
-                                    <Row>
+                                    <Row className="widget__header">
                                         <Col span={12}>
                                             <div className="widget__header_float_left" style={{padding: '35px 60px'}}>
                                             <span className="options__item_squared options__item_squared_state_active">
@@ -211,8 +197,8 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                                         </Col>
                                     </Row>
                                     <Row>
-                                        <Col span={3}
-                                             style={{position:'relative', overflow:'hidden',overflowX:'auto', height:rows.length*31+60}}>
+                                        <Col span={11}
+                                             style={{position:'relative', overflow:'hidden',overflowX:'auto', height:rows.length*31+160}}>
                                             <GantTable />
                                         </Col>
                                         <Col>
@@ -222,12 +208,8 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                                 </Card>
                             </Col>
                         </Row>
-                        <Modal visible={this.state.modalState.visible} title="Create a new collection"
-                               okText="Create"
-                               onCancel={(e)=>this.onCancel(e)}
-                               onOk={()=>this.onCancel()}>
-                            <CreateBatchForm ref={(ref)=>this.saveFormRef(ref)}/>
-                        </Modal>
+                        <CreateBatchForm visible={this.state.modalState.visible}
+                                         onCancel={this.onCancel.bind(this)} onCreate={this.onCreate.bind(this)} saveRef={this.saveFormRef.bind(this)}/>
                     </div>
                 </LocaleProvider>
             </Provider>
@@ -236,15 +218,35 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
     }
 
     onCancel(e = null) {
-        console.log(e);
+        const form = this.form;
+        this.state.modalState.visible = false;
+        form.resetFields();
     }
 
-    saveFormRef(ref) {
-        this.form = ref;
-        console.log(this.form);
+    onCreate(e = null) {
+        const form = this.form;
+        form.validateFields((err,values)=>{
+           if(!err){
+               let title = values['title'];
+               let route = store.cyberObjectsStore.get(values['route']) as Route;
+               let detailNumber = values['detailNumber'];
+               let plannedStartDate = values['plannedStartDate'];
+               this.buildCriticalPath(title,route,detailNumber,plannedStartDate);
+               this.state.modalState.visible = false;
+               form.resetFields();
+           }
+        });
+    }
+    buildCriticalPath(title:string,route:Route,detailsNumber:number,startDate:Moment){
+        let batchInstancePromise = simpleCriticalPath.buildCriticalPath(title,route,detailsNumber,startDate);
+        batchInstancePromise.then((batch)=>{
+            console.log(batch.uuid);
+        });
+    }
+    saveFormRef(form) {
+        this.form = form;
     }
 }
-;
 
 const appState = new AppState();
 ReactDOM.render(<TimerView appState={appState}/>, document.getElementById('root'));

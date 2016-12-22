@@ -1,7 +1,7 @@
 import {ReactElement} from "react";
 
 export abstract class AbstractViewProperty{
-    abstract requried:boolean;
+    abstract required:boolean;
     abstract enabled:boolean;
     abstract viewPropertyType:ViewPropertyType;
 }

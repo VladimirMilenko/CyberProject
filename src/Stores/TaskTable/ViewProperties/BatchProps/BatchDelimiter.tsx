@@ -8,7 +8,7 @@ import {observable, action} from "mobx";
 export class BatchDelimiter extends BatchViewProperty{
     @observable collapsed:boolean = false;
     callback:(val:boolean)=>void;
-    requried: boolean = true;
+    required: boolean = true;
     enabled: boolean = true;
     viewPropertyType: ViewPropertyType;
 

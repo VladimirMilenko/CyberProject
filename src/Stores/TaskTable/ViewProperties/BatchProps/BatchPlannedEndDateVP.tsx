@@ -1,10 +1,10 @@
 import {BatchViewProperty} from "./BatchViewProperty";
 import {ViewPropertyType} from "../AbstractViewProperty";
-import React,{ReactElement} from 'react';
+import React, {ReactElement} from 'react';
 import {BatchModel} from "../../../../Models/BatchModel";
 import {observable} from "mobx";
 import {CyberObjectsStore} from "../../../CyberObjectsStore/CyberObjectsStore";
-
+import {observer} from "mobx-react";
 const spanStyle = {
     float: 'right',
     width: 10,
@@ -12,52 +12,55 @@ const spanStyle = {
     display: 'inline-block',
     padding: '10px 0'
 };
+export class BatchPlannedEndDateVP extends BatchViewProperty {
 
-export class BatchPlannedStartDateVP extends BatchViewProperty{
+
     required: boolean = false;
     @observable enabled: boolean = true;
+
     viewPropertyType: ViewPropertyType;
     private store: CyberObjectsStore;
-    renderHeader(): ReactElement<any> {
-        if (this.store.orderedBy == 'plannedStartDate') {
+
+    constructor(store: CyberObjectsStore) {
+        super();
+        this.store = store;
+    }
+
+    @observable renderHeader(): ReactElement<any> {
+        if (this.store.orderedBy == 'plannedEndDate') {
             if(this.store.orderState == 1)
                 return (
-                    <td key="batchPlannedStartDate" className="rst__table__cell__header">
-                        Дата начала
+                    <td key="batchPlannedEndDate" className="rst__table__cell__header">
+                        Дата конца
                         <span className="anticon anticon-arrow-down" onClick={(e) => this.orderClicked()} style={spanStyle}/>
                     </td>
                 );
             else
                 return (
-                    <td key="batchPlannedStartDate" className="rst__table__cell__header">
-                        Дата начала
+                    <td key="batchPlannedEndDate" className="rst__table__cell__header">
+                        Дата конца
                         <span className="anticon anticon-arrow-up" onClick={(e) => this.orderClicked()} style={spanStyle}/>
                     </td>
                 );
         }
         return (
-            <td key="batchPlannedStartDate" className="rst__table__cell__header">
-                Дата начала
+            <td key="batchPlannedEndDate" className="rst__table__cell__header">
+                Дата конца
                 <span className="anticon anticon-arrow-down" onClick={(e) => this.orderClicked()} style={spanStyle}/>
             </td>
         );
     }
     orderClicked(){
-        this.store.orderBy('plannedStartDate');
+        this.store.orderBy('plannedEndDate');
     }
-
-    constructor(store:CyberObjectsStore){
-        super();
-        this.store = store;
-    }
-
-    render(object: BatchModel): ReactElement<any> {
+    @observable render(object: BatchModel): ReactElement<any> {
         let background = 'white';
-        if(object.howered)
+        if (object.howered)
             background = '#ffecbe';
-        if(object.selected)
+        if (object.selected)
             background = '#ffc842';
-        return <td key="batchPlannedStartDate" className="rst__table__cell" style={{background}}><span>{object.formattedStartDate}</span></td>;
+        return <td key="batchPlannedEndDate" className="rst__table__cell" style={{background}}>
+            <span>{object.formattedEndDate}</span></td>;
     }
 
 }

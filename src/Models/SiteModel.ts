@@ -4,7 +4,7 @@ import {isUndefined} from "util";
 import {isNullOrUndefined} from "util";
 export class SiteModel extends CyberObjectInstance {
     @observable name: string;
-    @observable workerSetLinks: Array<string>;
+    @observable workerSetLinks: Array<string> = [];
 
     fromJson(object: any) {
         super.fromJson(object);
@@ -20,5 +20,7 @@ export class SiteModel extends CyberObjectInstance {
                 }
             }
         }
+        this.autoUpdate = true;
+
     }
 }

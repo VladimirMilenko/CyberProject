@@ -2,8 +2,9 @@ import {StageViewProperty} from "./StageViewProperty";
 import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
+import moment from 'moment/moment';
 import ReactElement = React.ReactElement;
-export class StageTitle extends StageViewProperty{
+export class StagePlannedDuration extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;
     viewPropertyType: ViewPropertyType;
@@ -14,14 +15,16 @@ export class StageTitle extends StageViewProperty{
             background = '#b8fde3';
         if(object.selected)
             background = '#40ffad';
-
+        let days = object.plannedEndDate.diff(object.plannedStartDate, 'days') + 1;
+        let result =  moment.duration(days, 'days').locale('ru').humanize(false);
         return (
-            <td key="stageTitle" style={{background:background}} className="rst__table__cell">{object.title}</td>
+
+            <td key="stagePlannedDuration" style={{background:background}} className="rst__table__cell">{result}</td>
         );
     }
 
     renderHeader(): ReactElement<any> {
-        return <td key="stageTitle" className="rst__table__cell__header">Операция</td> ;
+        return <td key="stagePlannedDuration" className="rst__table__cell__header">Длительность</td> ;
     }
 
 }

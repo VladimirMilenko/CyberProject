@@ -54,5 +54,7 @@ export class RouteStageModel extends CyberObjectInstance{
                 this.specializationLink = specialization;
             }
         }
+        this.autoUpdate = true;
+
     }
 }
