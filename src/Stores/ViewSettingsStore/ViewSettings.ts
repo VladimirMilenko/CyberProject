@@ -52,7 +52,9 @@ export class ViewSettings {
             instance.howered = true;
         this.howeredUUID = uuid;
     }
-
+    getWidthInPx(hours:number){
+        return Math.abs(Math.abs(hours) * ((this.cellWidth+2) / 24));
+    }
     @computed get itemsCount(){
         let temp = moment(this.tableStart);
         let momentEnd = moment(this.tableEnd);

@@ -43,7 +43,7 @@ export class BatchRenderer extends React.Component<GantTableBatchRendererProps,{
             )
         });
         return(
-            <tr onClick={(e)=>this.selectObject()} onMouseOver={(e)=>this.hoverObject()} onMouseLeave={(e)=>this.removeHover()}>
+            <tr datatype="task" onClick={(e)=>this.selectObject()} onMouseOver={(e)=>this.hoverObject()} onMouseLeave={(e)=>this.removeHover()}>
                 {batchCells}
             </tr>
         )

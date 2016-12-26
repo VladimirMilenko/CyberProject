@@ -14,6 +14,7 @@ import {ViewSettings} from "../ViewSettingsStore/ViewSettings";
 import AxiosXHR = Axios.AxiosXHR;
 import IPromise = Axios.IPromise;
 import {SiteModel} from "../../Models/SiteModel";
+import {SimpleCriticalPath} from "../../CriticalPathConstruction/SimpleCriticalPath";
 
 export class CyberObjectsStore {
     observers = {};
@@ -35,6 +36,7 @@ export class CyberObjectsStore {
 
     viewSettings: ViewSettings;
     transportLayer: AbstractTransportLayer;
+    pathConstructionAlgorithm:SimpleCriticalPath;
 
     constructor() {
         this.routes = new Store<Route>();
@@ -45,6 +47,7 @@ export class CyberObjectsStore {
         this.batches = new Store<BatchModel>();
         this.batchStages = new Store<BatchStageModel>();
         this.sites = new Store<SiteModel>();
+        this.pathConstructionAlgorithm = new SimpleCriticalPath(this);
     }
 
     setViewSettings(vs: ViewSettings) {

@@ -25,7 +25,8 @@ export class SimpleCriticalPath{
                 title:stage.name,
                 worker:null,
                 equipment:null,
-                code:stage.code
+                code:stage.code,
+                setupDuration:stage.setupDuration
             };
             let min = {
                 duration:99999999,
@@ -54,7 +55,7 @@ export class SimpleCriticalPath{
             plannedEndDate:plannedBatchEndDate,
             name:title,
             plannedDuration:plannedBatchEndDate.diff(startDate,'hours'),
-            detailsNumber:detailNumber,
+            detailNumber:detailNumber,
             batchStageSet:batchStageSet
         };
         let result = await this.store.createBatchOnServer(batchJson);

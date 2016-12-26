@@ -37,6 +37,7 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
     @observable title: string;
     @observable plannedEndDate: Moment;
     @observable plannedStartDate: Moment;
+    @observable setupDuration:number;
     @observable code:string;
 
     @observable workerLink:string;
@@ -68,6 +69,8 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
         }
         if(!isNullOrUndefined(object.code))
             this.code = object.code;
+        if(!isNullOrUndefined(object.setupDuration))
+            this.setupDuration = object.setupDuration;
         this.updatePosition();
         this.autoUpdate = true;
 

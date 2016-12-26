@@ -155,7 +155,7 @@ export class GantTask extends React.Component<GTProps,GTState> {
 
         let childStyle = {}
         return (
-            <div onMouseOver={(e)=>{
+            <div datatype="task" onMouseOver={(e)=>{
                 viewSettings.setHoweredObject(task.uuid);
             }} onMouseLeave={(e)=>{
                 viewSettings.setHoweredObject('');

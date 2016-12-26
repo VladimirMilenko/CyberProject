@@ -14,6 +14,8 @@ import {StageSite} from "./ViewProperties/StageProps/StageSite";
 import {StagePlannedStartDate} from "./ViewProperties/StageProps/StagePlannedStartDate";
 import {StagePlannedEndDate} from "./ViewProperties/StageProps/StagePlannedEndDate";
 import {StagePlannedDuration} from "./ViewProperties/StageProps/StagePlannedDuration";
+import {StageExecutor} from "./ViewProperties/StageProps/StageExecutor";
+import {StageEquipment} from "./ViewProperties/StageProps/StageEquipment";
 
 export class TaskTableViewMode {
     @observable batchDelimiter:BatchDelimiter;
@@ -34,9 +36,11 @@ export class TaskTableViewMode {
 
         this.stageViewProperties.push(new StageTitle());
         this.stageViewProperties.push(new StageSite());
+        this.stageViewProperties.push(new StageEquipment());
         this.stageViewProperties.push(new StagePlannedStartDate());
         this.stageViewProperties.push(new StagePlannedEndDate());
         this.stageViewProperties.push(new StagePlannedDuration());
+        this.stageViewProperties.push(new StageExecutor(this.store));
     }
     updateViewProperties(collapsed:boolean){
         for(let batchView of this.batchViewProperties.filter(vp=>!vp.required)){

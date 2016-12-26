@@ -58,7 +58,7 @@ export class CreateBatchForm extends React.Component<{form?, cyberObjectsStore?:
                             <InputNumber style={{width:'100%'}}/>
                         )}
                     </FormItem>
-                    <FormItem label="Количество деталей"
+                    <FormItem label="Дата начала"
                     >
                         {getFieldDecorator('plannedStartDate', {
                             rules: [{required: true, message: 'Дата начала партии обязательна!'}],

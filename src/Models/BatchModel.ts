@@ -10,6 +10,7 @@ import {GantTreeObject} from "../Stores/CyberObjectsStore/CyberObjectsStore";
 import {WorkerModel} from "./WorkerModel";
 import {EquipmentModel} from "./EquipmentModel";
 import {Route} from "./RouteModel";
+import {isNullOrUndefined} from "util";
 
 
 export class BatchModel extends CyberObjectInstance implements GantModel, Selectable {
@@ -51,6 +52,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @observable name: string;
     @observable batchStageLinks: Array<string> = [];
 
+    @observable setupDuration:number;
     @observable workerLink: string;
     @observable equipmentLink: string;
 
@@ -105,6 +107,8 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
             this.title = object.name;
         if (!isUndefined(object.status))
             this.status = object.status;
+        if(!isNullOrUndefined(object.detailNumber))
+            this.detailsNumber = object.detailNumber;
         this.updatePosition();
         this.autoUpdate = true;
     }
@@ -176,7 +180,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @computed get toJson() {
         let {uuid, plannedStartDate, plannedEndDate, title} = this;
         return {
-            uuid, plannedStartDate, plannedEndDate, title
+            uuid, plannedStartDate, plannedEndDate, title, detailNumber:this.detailsNumber
         }
     }
 

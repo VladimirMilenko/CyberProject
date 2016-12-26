@@ -15,11 +15,12 @@ export class StagePlannedDuration extends StageViewProperty{
             background = '#b8fde3';
         if(object.selected)
             background = '#40ffad';
-        let days = object.plannedEndDate.diff(object.plannedStartDate, 'days') + 1;
-        let result =  moment.duration(days, 'days').locale('ru').humanize(false);
+        let hours = object.plannedEndDate.diff(object.plannedStartDate, 'hours');
+        let hoursCount = hours%24;
+        let days = Math.trunc(hours/24);
         return (
 
-            <td key="stagePlannedDuration" style={{background:background}} className="rst__table__cell">{result}</td>
+            <td key="stagePlannedDuration" style={{background:background}} className="rst__table__cell">{days}d {hoursCount}h</td>
         );
     }
 

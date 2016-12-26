@@ -72,8 +72,7 @@ store.setViewSettings(viewSettings);
 const stores = {
     cyberObjectsStore: store,
     taskTableViewMode: taskTableViewMode,
-    viewSettings: viewSettings,
-    criticalPath: simpleCriticalPath
+    viewSettings: viewSettings
 };
 class AppState {
     @observable timer = 0;
@@ -231,8 +230,8 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                let route = store.cyberObjectsStore.get(values['route']) as Route;
                let detailNumber = values['detailNumber'];
                let plannedStartDate = values['plannedStartDate'];
-               this.buildCriticalPath(title,route,detailNumber,plannedStartDate);
                this.state.modalState.visible = false;
+               let batchInstance = store.pathConstructionAlgorithm.buildCriticalPath(title,route,detailNumber,plannedStartDate);
                form.resetFields();
            }
         });
@@ -249,4 +248,4 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
 }
 
 const appState = new AppState();
-ReactDOM.render(<TimerView appState={appState}/>, document.getElementById('root'));
+ReactDOM.render( <TimerView appState={appState}/>, document.getElementById('root'));
