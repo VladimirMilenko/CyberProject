@@ -5,45 +5,55 @@ import {BatchModel} from "../../Models/BatchModel";
 import {ReactElement} from "react";
 import {BatchStageModel} from "../../Models/BatchStageModel";
 import {ViewSettings} from "../../Stores/ViewSettingsStore/ViewSettings";
-interface StageRendererProps{
-    taskTableViewMode?:TaskTableViewMode,
-    stage:BatchStageModel,
-    viewSettings?:ViewSettings
+import {BatchStatusVP} from "../../Stores/TaskTable/ViewProperties/BatchProps/BatchStatusVP";
+interface StageRendererProps {
+    taskTableViewMode?: TaskTableViewMode,
+    stage: BatchStageModel,
+    viewSettings?: ViewSettings
 }
-@inject("taskTableViewMode","viewSettings")
+@inject("taskTableViewMode", "viewSettings")
 @observer
-export class StageRenderer extends React.Component<StageRendererProps,{}>{
-    hoverObject(){
+export class StageRenderer extends React.Component<StageRendererProps,{}> {
+    hoverObject() {
         this.props.viewSettings.setHoweredObject(this.props.stage.uuid);
     }
-    removeHover(){
+
+    removeHover() {
         this.props.viewSettings.setHoweredObject('');
     }
-    selectObject(){
+
+    selectObject() {
         this.props.viewSettings.setSelectedObject(this.props.stage.uuid);
     }
-    removeSelection(){
+
+    removeSelection() {
         this.props.viewSettings.setSelectedObject('');
     }
-    render(){
-        let {stageViewProperties,batchViewProperties,batchDelimiter} = this.props.taskTableViewMode;
+
+    render() {
+        let {stageViewProperties, batchViewProperties, batchDelimiter} = this.props.taskTableViewMode;
         let {stage} = this.props;
         let batchCells: Array<ReactElement<any>> = [];
         let enabledBatchViews = batchViewProperties.filter(view => view.enabled);
-        enabledBatchViews.map((bv,index)=>{
-            batchCells.push(
-                <td key={`batchView-${index}`} className="rst__table__cell" />
-            )
+        enabledBatchViews.map((bv, index) => {
+            if (bv instanceof BatchStatusVP) {
+                batchCells.push(
+                    <td key={`batchView-${index}`} className="rst__table__cell rst__table__cell_status"/>
+                )
+            } else {
+                batchCells.push(<td key={`batchView-${index}`} className="rst__table__cell"/>)
+            }
         });
         batchCells.push(batchDelimiter.render(null));
-        let enabledStageViews = stageViewProperties.filter(view=>view.enabled);
-        enabledStageViews.map((stageView,index)=>{
+        let enabledStageViews = stageViewProperties.filter(view => view.enabled);
+        enabledStageViews.map((stageView, index) => {
             batchCells.push(
-               stageView.render(stage)
+                stageView.render(stage)
             )
         });
-        return(
-            <tr datatype="task" onClick={(e)=>this.selectObject()} onMouseOver={(e)=>this.hoverObject()} onMouseLeave={(e)=>this.removeHover()} >
+        return (
+            <tr datatype="task" onClick={(e)=>this.selectObject()} onMouseOver={(e)=>this.hoverObject()}
+                onMouseLeave={(e)=>this.removeHover()}>
                 {batchCells}
             </tr>
         )

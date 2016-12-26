@@ -5,8 +5,8 @@ import AxiosXHR = Axios.AxiosXHR;
 import * as autobahn from "autobahn";
 import {Connection} from "autobahn";
 
-export const updateChannel = 'cyber-platform.vpered.0-1-0.sandbox.cyberobjects.instances.updated';
-export const createChannel = 'cyber-platform.vpered.0-1-0.sandbox.cyberobjects.instances.created';
+export const updateChannel = 'cyber-platform.plant.0-1-0.sandbox.cyberobjects.instances.updated';
+export const createChannel = 'cyber-platform.plant.0-1-0.sandbox.cyberobjects.instances.created';
 
 export class CyberPlantTransportLayer extends AbstractTransportLayer{
     private socketConnection:Connection;
@@ -30,7 +30,7 @@ export class CyberPlantTransportLayer extends AbstractTransportLayer{
     connectToWS() {
 
         this.socketConnection = new autobahn.Connection({
-            url: "ws://crossbario.sandbox.0-1-0.vpered.cyber-platform.ru/ws",
+            url: "ws://crossbario.sandbox.0-1-0.plant.cyber-platform.ru/ws",
             realm: 'cyber-platform'
         });
         this.socketConnection.open();
@@ -41,7 +41,6 @@ export class CyberPlantTransportLayer extends AbstractTransportLayer{
             });
 
             session.subscribe(createChannel, (event) => {
-                console.log('obj created');
                 this.objectCreatedHandler(event[0]);
             });
         }

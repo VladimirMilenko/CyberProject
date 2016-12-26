@@ -112,21 +112,21 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                             let routeInstance = store.createRoute(route);
                         }
                     }
+                    axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=batch&go_deeper_level=4')
+                        .then((response) => {
+                            if (response.data) {
+                                let data: any = response.data;
+                                for (let batch of data.instances) {
+                                    if (batch instanceof Object) {
+                                        let routeInstance = store.createBatch(batch);
+                                    }
+                                }
+                            }
+                        });
                 }
             });
-        axios.get('http://sandbox.vpered.cyber-platform.ru/api/cyberobjects/instances/?uuid=adc6e5fa-8327-46b2-a7f8-c5056a9229a4&go_deeper_level=2')
-            .then((response) => {
-                if (response.data) {
-                    let data: any = response.data;
-                    for (let instance of data.instances) {
-                        if (instance.batchSet) {
-                            for (let batch of instance.batchSet) {
-                                let batchInstance = store.createBatch(batch);
-                            }
-                        }
-                    }
-                }
-            })
+
+
     }
 
     render() {
@@ -142,9 +142,66 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                     <div>
                         <Row>
                             <Col span={24}>
-                                <Card bordered={true}>
-                                    Test
-                                </Card>
+                                <section className="widget col-xs-12" style={{padding:0}}>
+                                    <header className="widget__header widget__header_size_s widget__header_color_dark"
+                                            style={{backgroundColor:'#ffcf5e'}}>
+                                        Проекты / Демозалы / Демозал КРЭТ, модернизация
+                                    </header>
+                                    <div className="widget__body" style={{height:'80px',padding:'30px 0'}}>
+                                        <ul className="menu">
+                                            <li className="menu__item">
+                                                <a href='/' className="menu__link link menu__link_state_active">
+                                                    <span className="menu__icon "><i className="icon-folder"/></span>
+                                                    <span className="menu__title">Задачи</span>
+                                                </a>
+                                            </li>
+
+                                            <li className="menu__item">
+                                                <a href='/test' className="menu__link link">
+                                                    <span className="menu__icon"><i className="icon-two-users"/></span>
+                                                    <span className="menu__title">Участники</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul className="options">
+                                            <li className="options__item">
+                                                <a className="options__link link">
+                                                    <span className="options__icon"><i
+                                                        className="icon-berezka"/> </span>
+                                                </a>
+                                            </li>
+                                            <li className="options__item">
+                                                <a className="options__link link">
+                                                    <span className="options__icon"><i className="icon-grid"/></span>
+                                                </a>
+                                            </li>
+                                            <li className="options__item">
+                                                <a className="options__link link">
+                                                    <span className="options__icon"><i className="icon-cols"/> </span>
+                                                </a>
+                                            </li>
+                                            <li className="options__item">
+                                                <a className="options__link link options__link_state_active">
+                                                    <span className="options__icon"><i className="icon-list"/> </span>
+                                                </a>
+                                            </li>
+                                            <li className="options__item">
+                    <span className="options__icon">
+                    <a className="options__item_squared options__link link">
+                        А
+                    </a>
+                    </span>
+                                            </li>
+                                            <li className="options__item">
+                    <span className="options__icon">
+                    <a className="options__item_squared options__link link options__item_squared_state_active">
+                        М
+                    </a>
+                    </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
                             </Col>
                             <Col span={24} style={{marginTop:20}}>
                                 <Card bordered={true}>
@@ -208,7 +265,8 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                             </Col>
                         </Row>
                         <CreateBatchForm visible={this.state.modalState.visible}
-                                         onCancel={this.onCancel.bind(this)} onCreate={this.onCreate.bind(this)} saveRef={this.saveFormRef.bind(this)}/>
+                                         onCancel={this.onCancel.bind(this)} onCreate={this.onCreate.bind(this)}
+                                         saveRef={this.saveFormRef.bind(this)}/>
                     </div>
                 </LocaleProvider>
             </Provider>
@@ -224,24 +282,26 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
 
     onCreate(e = null) {
         const form = this.form;
-        form.validateFields((err,values)=>{
-           if(!err){
-               let title = values['title'];
-               let route = store.cyberObjectsStore.get(values['route']) as Route;
-               let detailNumber = values['detailNumber'];
-               let plannedStartDate = values['plannedStartDate'];
-               this.state.modalState.visible = false;
-               let batchInstance = store.pathConstructionAlgorithm.buildCriticalPath(title,route,detailNumber,plannedStartDate);
-               form.resetFields();
-           }
+        form.validateFields((err, values) => {
+            if (!err) {
+                let title = values['title'];
+                let route = store.cyberObjectsStore.get(values['route']) as Route;
+                let detailNumber = values['detailNumber'];
+                let plannedStartDate = values['plannedStartDate'];
+                this.state.modalState.visible = false;
+                let batchInstance = store.pathConstructionAlgorithm.buildCriticalPath(title, route, detailNumber, plannedStartDate);
+                form.resetFields();
+            }
         });
     }
-    buildCriticalPath(title:string,route:Route,detailsNumber:number,startDate:Moment){
-        let batchInstancePromise = simpleCriticalPath.buildCriticalPath(title,route,detailsNumber,startDate);
-        batchInstancePromise.then((batch)=>{
+
+    buildCriticalPath(title: string, route: Route, detailsNumber: number, startDate: Moment) {
+        let batchInstancePromise = simpleCriticalPath.buildCriticalPath(title, route, detailsNumber, startDate);
+        batchInstancePromise.then((batch) => {
             console.log(batch.uuid);
         });
     }
+
     saveFormRef(form) {
         this.form = form;
     }

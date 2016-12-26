@@ -23,7 +23,7 @@ export class StageEquipment extends StageViewProperty{
     }
 
     renderHeader(): ReactElement<any> {
-        return <td key="stageEquipment" className="rst__table__cell__header">Агрегат</td> ;
+        return <td key="stageEquipment" className="rst__table__cell__header">Инструмент</td>;
     }
 
 }

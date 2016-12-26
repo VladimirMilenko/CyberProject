@@ -107,8 +107,8 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
             this.title = object.name;
         if (!isUndefined(object.status))
             this.status = object.status;
-        if(!isNullOrUndefined(object.detailNumber))
-            this.detailsNumber = object.detailNumber;
+        if(!isNullOrUndefined(object.detailsNumber))
+            this.detailsNumber = object.detailsNumber;
         this.updatePosition();
         this.autoUpdate = true;
     }
@@ -180,7 +180,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @computed get toJson() {
         let {uuid, plannedStartDate, plannedEndDate, title} = this;
         return {
-            uuid, plannedStartDate, plannedEndDate, title, detailNumber:this.detailsNumber
+            uuid, plannedStartDate, plannedEndDate, title, detailsNumber:this.detailsNumber
         }
     }
 
