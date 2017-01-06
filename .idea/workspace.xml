@@ -2,16 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7dcb71f8-a849-4f70-afd8-d1425e032bc7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/bundle.js.map" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/bundle.js" afterPath="$PROJECT_DIR$/docs/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/GantTable/StageRenderer.tsx" afterPath="$PROJECT_DIR$/src/Components/GantTable/StageRenderer.tsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts" afterPath="$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/BatchModel.ts" afterPath="$PROJECT_DIR$/src/Models/BatchModel.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Forms/CreateBatchForm.tsx" afterPath="$PROJECT_DIR$/src/Forms/CreateBatchForm.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/BatchStageModel.ts" afterPath="$PROJECT_DIR$/src/Models/BatchStageModel.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.tsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TransportLayers/CyberPlantTransportLayer.ts" afterPath="$PROJECT_DIR$/src/TransportLayers/CyberPlantTransportLayer.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageExecutor.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageExecutor.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedDuration.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedDuration.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedEndDate.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedEndDate.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedStartDate.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedStartDate.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageSite.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageSite.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx" afterPath="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts" afterPath="$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.tsx" afterPath="$PROJECT_DIR$/src/index.tsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/styles/core.scss" afterPath="$PROJECT_DIR$/src/static/styles/core.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tsconfig.json" afterPath="$PROJECT_DIR$/tsconfig.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/typings/index.d.ts" afterPath="$PROJECT_DIR$/typings/index.d.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,30 +40,8 @@
       <file leaf-file-name="BatchModel.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Models/BatchModel.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="182" column="72" lean-forward="false" selection-start-line="182" selection-start-column="72" selection-end-line="182" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CyberPlantTransportLayer.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TransportLayers/CyberPlantTransportLayer.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="74" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.scss" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/static/styles/core.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="27" column="2" lean-forward="false" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
+            <state relative-caret-position="780">
+              <caret line="72" column="4" lean-forward="false" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -67,50 +50,60 @@
       <file leaf-file-name="SimpleCriticalPath.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="57" column="25" lean-forward="false" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
+            <state relative-caret-position="0">
+              <caret line="27" column="56" lean-forward="false" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BatchStatusVP.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchStatusVP.tsx">
+      <file leaf-file-name="StageTitle.tsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="42" column="85" lean-forward="false" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="85" />
+            <state relative-caret-position="210">
+              <caret line="18" column="107" lean-forward="false" selection-start-line="18" selection-start-column="102" selection-end-line="18" selection-end-column="107" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.tsx" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/index.tsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="223" column="44" lean-forward="true" selection-start-line="223" selection-start-column="44" selection-end-line="223" selection-end-column="44" />
               <folding>
-                <element signature="e#0#54#0" expanded="true" />
+                <element signature="e#1413#1462#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StageRenderer.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/GantTable/StageRenderer.tsx">
+      <file leaf-file-name="TaskTableViewMode.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/TaskTableViewMode.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+            <state relative-caret-position="275">
+              <caret line="42" column="68" lean-forward="false" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.tsx">
+      <file leaf-file-name="CyberObjectsStore.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Stores/CyberObjectsStore/CyberObjectsStore.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="124" column="27" lean-forward="false" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="27" />
+            <state relative-caret-position="1995">
+              <caret line="146" column="19" lean-forward="false" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StageEquipment.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx">
+      <file leaf-file-name="RouteStageModel.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Models/RouteStageModel.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="25" column="78" lean-forward="false" selection-start-line="25" selection-start-column="78" selection-end-line="25" selection-end-column="78" />
+            <state relative-caret-position="215">
+              <caret line="46" column="30" lean-forward="false" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -119,9 +112,21 @@
       <file leaf-file-name="ViewSettings.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+            <state relative-caret-position="425">
+              <caret line="49" column="39" lean-forward="false" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Store.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Stores/CyberObjectsStore/Store.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#80#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -129,8 +134,8 @@
       <file leaf-file-name="BatchStageModel.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Models/BatchStageModel.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="61" column="46" lean-forward="true" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+            <state relative-caret-position="320">
+              <caret line="48" column="37" lean-forward="false" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -158,10 +163,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/typings/modules/react/index.d.ts" />
-        <option value="$PROJECT_DIR$/src/Components/GantTable/GantTable.ts" />
-        <option value="$PROJECT_DIR$/src/Stores/CyberObjectsStore/Store.ts" />
-        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/AbstractViewProperty.ts" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchTitleVP.ts" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchCode.ts" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchPlannedStartDateVP.ts" />
@@ -178,9 +179,7 @@
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchViewProperty.ts" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.ts" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/TaskTableViewMode.tsx" />
-        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.tsx" />
         <option value="$PROJECT_DIR$/src/Components/GantTable/HeaderRenderer.tsx" />
-        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx" />
         <option value="$PROJECT_DIR$/src/Components/GantChart.ts" />
         <option value="$PROJECT_DIR$/src/Components/GantHeader.tsx" />
         <option value="$PROJECT_DIR$/src/Components/GantTable/GantTable.tsx" />
@@ -190,25 +189,31 @@
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchTitleVP.tsx" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchPlannedStartDateVP.tsx" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchPlannedEndDateVP.tsx" />
-        <option value="$PROJECT_DIR$/src/Forms/CreateBatchForm.tsx" />
         <option value="$PROJECT_DIR$/src/Components/GantTable/BatchRenderer.tsx" />
-        <option value="$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts" />
         <option value="$PROJECT_DIR$/src/Components/GantChart.tsx" />
         <option value="$PROJECT_DIR$/src/Components/GantTask.tsx" />
-        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedDuration.tsx" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/TaskTableViewMode.ts" />
         <option value="$PROJECT_DIR$/src/Stores/CyberObjectsStore/CyberObjectsStore.ts" />
-        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageExecutor.tsx" />
         <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDetailNumberVP.tsx" />
         <option value="$PROJECT_DIR$/src/static/styles/antd.scss" />
-        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx" />
         <option value="$PROJECT_DIR$/src/TransportLayers/CyberPlantTransportLayer.ts" />
-        <option value="$PROJECT_DIR$/src/index.tsx" />
-        <option value="$PROJECT_DIR$/src/Models/BatchStageModel.ts" />
         <option value="$PROJECT_DIR$/src/Models/BatchModel.ts" />
-        <option value="$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts" />
         <option value="$PROJECT_DIR$/src/Components/GantTable/StageRenderer.tsx" />
         <option value="$PROJECT_DIR$/src/static/styles/core.scss" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedEndDate.tsx" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedStartDate.tsx" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageSite.tsx" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedDuration.tsx" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageExecutor.tsx" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx" />
+        <option value="$PROJECT_DIR$/tsconfig.json" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.tsx" />
+        <option value="$PROJECT_DIR$/src/Forms/CreateBatchForm.tsx" />
+        <option value="$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx" />
+        <option value="$PROJECT_DIR$/src/Models/BatchStageModel.ts" />
+        <option value="$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts" />
+        <option value="$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts" />
+        <option value="$PROJECT_DIR$/src/index.tsx" />
       </list>
     </option>
   </component>
@@ -224,10 +229,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="873" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -247,7 +251,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -351,92 +355,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TaskTable" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CyberProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CyberProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TaskTable" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ViewProperties" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CyberProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CyberProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TaskTable" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ViewProperties" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StageProps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CyberProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CyberProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Stores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TaskTable" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ViewProperties" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BatchProps" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -596,9 +514,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CyberProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CyberProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -612,6 +544,10 @@
     <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
     <property name="SearchEverywhereHistoryKey" value="AxiosPr&#9;null&#9;null" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -721,26 +657,26 @@
       <workItem from="1482440397515" duration="1503000" />
       <workItem from="1482483187748" duration="8290000" />
       <workItem from="1482742828380" duration="3987000" />
+      <workItem from="1483713887008" duration="7043000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86749000" />
+    <option name="totallyTimeSpent" value="93792000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="23" width="1440" height="873" extended-state="6" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2751896" sideWeight="0.49578503" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20337197" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20295984" sideWeight="0.49242425" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33479214" sideWeight="0.51282054" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32502708" sideWeight="0.4871795" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32394367" sideWeight="0.4871795" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20295984" sideWeight="0.50757575" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -759,45 +695,12 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/typings/modules/react/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/CyberObjectsStore/Store.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="4" column="15" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.prod.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="45" column="17" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchCode.ts" />
-    <entry file="file://$PROJECT_DIR$/src/Models/GantModels/Stage.ts" />
     <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/Test.ts" />
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="38" column="132" lean-forward="false" selection-start-line="38" selection-start-column="132" selection-end-line="38" selection-end-column="132" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/static/styles/fontawesome/font-awesome.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -812,48 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageViewProperty.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchViewProperty.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/GantTable/HeaderRenderer.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="52" lean-forward="false" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/GantHeader.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/GantTable/GantTable.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -861,41 +722,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/WorkerModel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/SpecializationModel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Models/SiteModel.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/RouteStageModel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/RouteModel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -911,59 +741,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tsconfig.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="32" lean-forward="false" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchTitleVP.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="17" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchPlannedStartDateVP.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="16" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchPlannedEndDateVP.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="50" column="64" lean-forward="false" selection-start-line="50" selection-start-column="64" selection-end-line="50" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Forms/CreateBatchForm.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="60" column="48" lean-forward="false" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -971,32 +748,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="1" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/GantTable/BatchRenderer.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="45" column="16" lean-forward="false" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageSite.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/GantChart.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1015,135 +766,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedDuration.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="125" lean-forward="false" selection-start-line="22" selection-start-column="125" selection-end-line="22" selection-end-column="125" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/TaskTableViewMode.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="42" column="68" lean-forward="false" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/CyberObjectsStore/CyberObjectsStore.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="49" column="70" lean-forward="false" selection-start-line="49" selection-start-column="70" selection-end-line="49" selection-end-column="70" />
-          <folding>
-            <element signature="e#850#899#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageExecutor.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="46" column="10" lean-forward="false" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-            <element signature="e#250#329#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDetailNumberVP.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="120" lean-forward="false" selection-start-line="18" selection-start-column="120" selection-end-line="18" selection-end-column="120" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/static/styles/antd.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="3145" column="0" lean-forward="false" selection-start-line="3145" selection-start-column="0" selection-end-line="3145" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TransportLayers/CyberPlantTransportLayer.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="25" column="78" lean-forward="false" selection-start-line="25" selection-start-column="78" selection-end-line="25" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="124" column="27" lean-forward="false" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/BatchStageModel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="61" column="46" lean-forward="true" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/BatchModel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="182" column="72" lean-forward="false" selection-start-line="182" selection-start-column="72" selection-end-line="182" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="57" column="25" lean-forward="false" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchStatusVP.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="42" column="85" lean-forward="false" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/GantTable/StageRenderer.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1153,6 +779,338 @@
         <state relative-caret-position="204">
           <caret line="27" column="2" lean-forward="false" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedEndDate.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedStartDate.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageViewProperty.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StagePlannedDuration.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="11" column="46" lean-forward="false" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageEquipment.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="10" column="41" lean-forward="false" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageExecutor.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-45">
+          <caret line="16" column="39" lean-forward="true" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageSite.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="10" column="45" lean-forward="false" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="38" column="132" lean-forward="false" selection-start-line="38" selection-start-column="132" selection-end-line="38" selection-end-column="132" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/GantTable/HeaderRenderer.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDetailCodeVP.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDetailNumberVP.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="120" lean-forward="false" selection-start-line="18" selection-start-column="120" selection-end-line="18" selection-end-column="120" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchPlannedEndDateVP.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchPlannedStartDateVP.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="16" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchStatusVP.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="85" lean-forward="false" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="85" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchTitleVP.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchViewProperty.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/BatchProps/BatchDelimiter.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/GantTable/BatchRenderer.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="45" column="16" lean-forward="false" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/GantTable/StageRenderer.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/GantChart.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/GantHeader.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Forms/CreateBatchForm.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="716">
+          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TransportLayers/CyberPlantTransportLayer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/SpecializationModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="17" column="58" lean-forward="true" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/WorkerModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="40" lean-forward="true" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/RouteModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="21" column="57" lean-forward="false" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/RouteStageModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="46" column="30" lean-forward="false" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/ViewProperties/StageProps/StageTitle.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="107" lean-forward="false" selection-start-line="18" selection-start-column="102" selection-end-line="18" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/BatchStageModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="48" column="37" lean-forward="false" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CriticalPathConstruction/SimpleCriticalPath.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="27" column="56" lean-forward="false" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/TaskTable/TaskTableViewMode.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="42" column="68" lean-forward="false" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/CyberObjectsStore/Store.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/CyberObjectsStore/CyberObjectsStore.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="146" column="19" lean-forward="false" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/BatchModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="72" column="4" lean-forward="false" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Stores/ViewSettingsStore/ViewSettings.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="49" column="39" lean-forward="false" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="223" column="44" lean-forward="true" selection-start-line="223" selection-start-column="44" selection-end-line="223" selection-end-column="44" />
+          <folding>
+            <element signature="e#1413#1462#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

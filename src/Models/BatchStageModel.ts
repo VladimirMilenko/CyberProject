@@ -45,8 +45,8 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
 
     fromJson(object: any) {
         super.fromJson(object);
-        if (!isUndefined(object.title))
-            this.title = object.title;
+        if (!isUndefined(object.name))
+            this.title = object.name;
         if (!isUndefined(object.plannedEndDate))
             this.plannedEndDate = moment(object.plannedEndDate);
         if (!isUndefined(object.plannedStartDate))

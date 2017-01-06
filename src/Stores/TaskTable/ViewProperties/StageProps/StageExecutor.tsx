@@ -2,9 +2,9 @@ import {StageViewProperty} from "./StageViewProperty";
 import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
-import ReactElement = React.ReactElement;
 import {CyberObjectsStore} from "../../../CyberObjectsStore/CyberObjectsStore";
 import Select from "antd/lib/select";
+import {ReactElement} from "react";
 export class StageExecutor extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;

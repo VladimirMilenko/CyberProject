@@ -10,7 +10,7 @@ import axios from 'axios';
 import Card from "antd/lib/card/";
 import './static/styles/core.scss';
 import {GantTable} from "./Components/GantTable/GantTable";
-import {ViewSettings} from "./Stores/ViewSettingsStore/ViewSettings";
+import {ViewSettings, ExpandedViewState} from "./Stores/ViewSettingsStore/ViewSettings";
 import {TaskTableViewMode} from "./Stores/TaskTable/TaskTableViewMode";
 import {GantChart} from "./Components/GantChart";
 import Button from "antd/lib/button/button";
@@ -30,6 +30,7 @@ import {WorkerModel} from "./Models/WorkerModel";
 import {EquipmentModel} from "./Models/EquipmentModel";
 import {isNullOrUndefined} from "util";
 import {SimpleCriticalPath} from "./CriticalPathConstruction/SimpleCriticalPath";
+import classNames from 'classnames';
 
 const marks = {
     4: 'День',
@@ -91,7 +92,7 @@ class ModalState {
     @observable visible = false;
 }
 @observer
-class TimerView extends React.Component<{appState: AppState}, {modalState: ModalState}> {
+class TimerView extends React.Component<{ appState: AppState }, { modalState: ModalState }> {
     form: any;
 
     constructor() {
@@ -99,6 +100,10 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
         this.state = {
             modalState: new ModalState()
         };
+    }
+
+    setExpandedViewState(state) {
+        viewSettings.setExpandedViewState(state);
     }
 
     componentDidMount() {
@@ -208,19 +213,16 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                                     <Row className="widget__header">
                                         <Col span={12}>
                                             <div className="widget__header_float_left" style={{padding: '35px 60px'}}>
-                                            <span className="options__item_squared options__item_squared_state_active">
+                                            <span onClick={()=>{this.setExpandedViewState(ExpandedViewState.Collapsed)}} className={classNames({
+                                                "options__item_squared":true,
+                                                "options__item_squared_state_active": viewSettings.expandedViewState == ExpandedViewState.Collapsed
+                                            })}>
                                                 П
                                             </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                1
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                2
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                3
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
+                                                <span onClick={()=>{this.setExpandedViewState(ExpandedViewState.Expanded)}} className={classNames({
+                                                    "options__item_squared":true,
+                                                    "options__item_squared_state_active": viewSettings.expandedViewState == ExpandedViewState.Expanded})}
+                                                      style={{marginLeft: '10px'}}>
                                                 Все
                                             </span>
                                                 <span
@@ -283,7 +285,9 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
     onCreate(e = null) {
         const form = this.form;
         form.validateFields((err, values) => {
+            console.log(err);
             if (!err) {
+
                 let title = values['title'];
                 let route = store.cyberObjectsStore.get(values['route']) as Route;
                 let detailNumber = values['detailNumber'];
