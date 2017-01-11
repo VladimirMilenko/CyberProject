@@ -16,10 +16,10 @@ export class ViewSettings {
         year: 2016
     };
     gantWrapper: number = null;
-    defaultCellWidth: number = 70;
+    defaultCellWidth: number = 46;
     @observable howeredUUID: string;
     @observable selectedUUID: string;
-    @observable headerSubItems: number = 4;
+    @observable headerSubItems: number = 0;
     @observable expandedViewState = ExpandedViewState.Collapsed;
 
     store: CyberObjectsStore;

@@ -180,8 +180,7 @@ export class CyberObjectsStore {
             "objectChangedReaction",
             () => cyberObjectInstance.toJson,
             serializedObject => {
-                console.log(serializedObject);
-                if(this.cyberObjectsStore.get(serializedObject.uuid).autoUpdate)
+                if(cyberObjectInstance.autoUpdate)
                     this.transportLayer.updateObject(serializedObject);
             }
         );

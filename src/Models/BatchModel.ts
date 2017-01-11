@@ -1,6 +1,6 @@
 import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {CyberObejctType} from "./BasicTypes/CyberObjectTypes";
-import {observable, computed} from "mobx";
+import {observable, computed, action} from "mobx";
 import moment from 'moment';
 import {BatchStageModel} from "./BatchStageModel";
 import {isUndefined} from "util";
@@ -17,6 +17,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @observable howered: boolean;
     @observable selected: boolean;
 
+    @action
     dragged(hours: number): void {
         this.plannedEndDate = moment(this.plannedEndDate.add(hours, 'h'));
         this.plannedStartDate = moment(this.plannedStartDate.add(hours, 'h'));
@@ -25,7 +26,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
         }
         this.updatePosition();
     }
-
+    @action
     resized(direction: string, hours: number): void {
         switch (direction) {
             case 'left':
@@ -41,7 +42,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     }
 
     rndObject: any;
-    @observable expanded: boolean = true;
+    @observable expanded: boolean = false;
     @observable is_finished: boolean;
     @observable title: string;
     @observable plannedEndDate: Moment;

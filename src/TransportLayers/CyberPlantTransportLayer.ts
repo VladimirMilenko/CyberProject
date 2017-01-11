@@ -35,7 +35,6 @@ export class CyberPlantTransportLayer extends AbstractTransportLayer{
         });
         this.socketConnection.open();
         this.socketConnection.onopen = (session) => {
-
             session.subscribe(updateChannel, (event) => {
                 this.objectUpdatedHandler(event[0]);
             });
