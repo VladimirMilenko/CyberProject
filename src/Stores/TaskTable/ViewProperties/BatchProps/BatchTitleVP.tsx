@@ -5,7 +5,7 @@ import React, {ReactElement} from "react";
 import {observable} from "mobx";
 import classNames from "classnames";
 import Icon from "antd/lib/icon";
-import Input from "antd/lib/input/input";
+import Input from "antd/lib/input";
 
 
 const containerStyles = require('./styles/table.scss');
