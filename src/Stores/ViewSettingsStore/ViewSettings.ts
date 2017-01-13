@@ -8,6 +8,10 @@ export class ViewSettings {
     @observable momentStart: Moment = moment();
     @observable tableEnd: Moment = moment();
     @observable tableStart: Moment = moment();
+
+    @observable loading:boolean = false;
+
+
     preloadComponents: number = 4;
     currentIndex: number = 0;
     @observable cellWidth: number = 46;

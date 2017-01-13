@@ -73,7 +73,7 @@ class TimerView extends React.Component<{},{}> {
     }
 
     componentDidMount() {
-
+        viewSettings.loading = true;
         axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=4')
             .then((response) => {
                 if (response.data) {
@@ -92,6 +92,7 @@ class TimerView extends React.Component<{},{}> {
                                         let routeInstance = store.createBatch(batch);
                                     }
                                 }
+                                viewSettings.loading=false;
                             }
                         });
                 }

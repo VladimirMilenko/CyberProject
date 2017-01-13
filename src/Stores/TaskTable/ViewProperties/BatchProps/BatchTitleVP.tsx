@@ -12,7 +12,7 @@ const containerStyles = require('./styles/table.scss');
 
 const containerStyle = {
     position: 'relative',
-    paddingRight: 30
+    paddingRight: 50
 };
 const spanStyle = {
     paddingTop: 10,
@@ -25,7 +25,7 @@ const editIconStyle = {
     paddingTop: 10,
     paddingBottom: 10,
     position: 'absolute',
-    right: -20
+    right: 20
 }
 
 export class BatchTitleVP extends BatchViewProperty {
@@ -55,6 +55,14 @@ export class BatchTitleVP extends BatchViewProperty {
                     style={{...containerStyle, background:background}}>
                     {object.title}
 
+                    <Icon
+                        type="edit"
+                        className="editable-cell-icon"
+                        style={editIconStyle}
+                        onClick={() => {
+                        this.edit(object)
+                    }}/>
+
                     <span style={spanStyle}
                           className={classNames({
                                   "icon":true,
@@ -65,13 +73,7 @@ export class BatchTitleVP extends BatchViewProperty {
                                     object.expanded = !object.expanded;
                           }}>
                     </span>
-                    <Icon
-                        type="edit"
-                        className="editable-cell-icon"
-                        style={editIconStyle}
-                        onClick={() => {
-                        this.edit(object)
-                    }}/>
+
                 </td>
             )
         }

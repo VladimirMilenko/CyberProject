@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React, {Component} from "react";
 import {GantTable} from "../../Components/GantTable/GantTable";
 import Col from "antd/lib/grid/col";
 import Card from "antd/lib/card/"
@@ -18,14 +18,15 @@ import Button from "antd/lib/button/button";
 
 import classNames from 'classnames';
 import {Header} from "../../Components/Header/Header";
+import Spin from "antd/lib/spin";
 
-interface HomeProps{
-    cyberObjectsStore?:CyberObjectsStore;
-    viewSettings?:ViewSettings;
+interface HomeProps {
+    cyberObjectsStore?: CyberObjectsStore;
+    viewSettings?: ViewSettings;
 
 }
-interface HomeState{
-    modalState:ModalState
+interface HomeState {
+    modalState: ModalState
 }
 class ModalState {
     @observable visible = false;
@@ -35,26 +36,29 @@ const marks = {
     12: 'День',
     24: 'Час',
 };
-@inject("cyberObjectsStore","viewSettings")
+@inject("cyberObjectsStore", "viewSettings")
 @observer
-export class Home extends Component<HomeProps,HomeState>{
+export class Home extends Component<HomeProps,HomeState> {
 
-    private form:any;
+    private form: any;
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
-            modalState:new ModalState()
+            modalState: new ModalState()
         }
     }
+
     setExpandedViewState(state) {
         this.props.viewSettings.setExpandedViewState(state);
     }
+
     onCancel(e = null) {
         const form = this.form;
         this.state.modalState.visible = false;
         form.resetFields();
     }
+
     onCreate(e = null) {
         const form = this.form;
         form.validateFields((err, values) => {
@@ -83,8 +87,8 @@ export class Home extends Component<HomeProps,HomeState>{
         this.form = form;
     }
 
-    render(){
-        let {viewSettings,cyberObjectsStore} = this.props;
+    render() {
+        let {viewSettings, cyberObjectsStore} = this.props;
         let rows = getFlatDataFromTree({
             treeData: cyberObjectsStore.gantTree, getNodeKey: ({node:_node, treeIndex}) => {
                 return _node.content.uuid;
@@ -92,15 +96,17 @@ export class Home extends Component<HomeProps,HomeState>{
             ignoreCollapsed: true
         });
         console.log(rows);
-        return(
+        return (
             <div>
                 <Row>
                     <Header />
+
                     <Col span={24} style={{marginTop:20}}>
-                        <Card bordered={true}>
-                            <Row className="widget__header">
-                                <Col span={12}>
-                                    <div className="widget__header_float_left" style={{padding: '35px 60px'}}>
+                        <Spin size="large" spinning={viewSettings.loading} tip="Загрузка данных">
+                            <Card bordered={true}>
+                                <Row className="widget__header">
+                                    <Col span={12}>
+                                        <div className="widget__header_float_left" style={{padding: '35px 60px'}}>
                                             <span onClick={()=>{this.setExpandedViewState(ExpandedViewState.Collapsed)}}
                                                   className={classNames({
                                                 "options__item_squared":true,
@@ -108,26 +114,26 @@ export class Home extends Component<HomeProps,HomeState>{
                                             })}>
                                                 П
                                             </span>
-                                        <span
-                                            onClick={()=>{this.setExpandedViewState(ExpandedViewState.Expanded)}}
-                                            className={classNames({
+                                            <span
+                                                onClick={()=>{this.setExpandedViewState(ExpandedViewState.Expanded)}}
+                                                className={classNames({
                                                     "options__item_squared":true,
                                                     "options__item_squared_state_active": viewSettings.expandedViewState === ExpandedViewState.Expanded})}
-                                            style={{marginLeft: '10px'}}>
+                                                style={{marginLeft: '10px'}}>
                                                 Все
                                             </span>
-                                        <span
-                                            style={{marginLeft: '50px', fontSize: '15px', fontWeight: 'bold'}}>
+                                            <span
+                                                style={{marginLeft: '50px', fontSize: '15px', fontWeight: 'bold'}}>
                                                 План производства
                                             </span>
-                                    </div>
-                                </Col>
-                                <Col span={12}>
-                                    <div className="widget__header_float_right" style={{padding: '35px 60px'}}>
-                                        <Button size="large" type="primary"
-                                                onClick={(e) => this.state.modalState.visible = !this.state.modalState.visible}>Добавить</Button>
-                                        <Slider max={24} min={0} marks={marks} step={12} defaultValue={0}
-                                                onAfterChange={(val)=>{
+                                        </div>
+                                    </Col>
+                                    <Col span={12}>
+                                        <div className="widget__header_float_right" style={{padding: '35px 60px'}}>
+                                            <Button size="large" type="primary"
+                                                    onClick={(e) => this.state.modalState.visible = !this.state.modalState.visible}>Добавить</Button>
+                                            <Slider max={24} min={0} marks={marks} step={12} defaultValue={0}
+                                                    onAfterChange={(val)=>{
                                                 if(val===0){
                                                     viewSettings.headerSubItems=0;
                                                     viewSettings.cellWidth=46;
@@ -147,21 +153,25 @@ export class Home extends Component<HomeProps,HomeState>{
                                                     task.updatePosition();
                                                 }
                                             }}/>
-                                    </div>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={11}
-                                     style={{position:'relative', overflow:'hidden',overflowX:'auto', height:rows.length*31+160}}>
-                                    <GantTable />
-                                </Col>
-                                <Col>
-                                    <GantChart />
-                                </Col>
-                            </Row>
-                        </Card>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={11}
+                                         style={{position:'relative', overflow:'hidden',overflowX:'auto', height:rows.length*31+160}}>
+                                        <GantTable />
+                                    </Col>
+                                    <Col>
+                                        <GantChart />
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Spin>
+
                     </Col>
+
                 </Row>
+
                 <CreateBatchForm visible={this.state.modalState.visible}
                                  onCancel={this.onCancel.bind(this)} onCreate={this.onCreate.bind(this)}
                                  saveRef={this.saveFormRef.bind(this)}/>
