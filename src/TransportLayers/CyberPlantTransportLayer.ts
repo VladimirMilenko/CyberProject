@@ -10,7 +10,7 @@ export const createChannel = 'cyber-platform.plant.0-1-0.sandbox.cyberobjects.in
 
 export class CyberPlantTransportLayer extends AbstractTransportLayer{
     private socketConnection:Connection;
-
+    private objects: Array<any> = [];
     constructor(store,objectCreatedHandler,objectUpdatedHandler){
         super(store,objectCreatedHandler,objectUpdatedHandler);
         this.connectToWS();
@@ -22,6 +22,7 @@ export class CyberPlantTransportLayer extends AbstractTransportLayer{
         );
     }
     updateObject(object:any){
+
         return axios.post(
             `http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/update/`,
             {uuid:object.uuid,...object}

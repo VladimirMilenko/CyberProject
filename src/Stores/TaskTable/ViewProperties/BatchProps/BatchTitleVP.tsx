@@ -4,8 +4,8 @@ import {BatchModel} from "../../../../Models/BatchModel";
 import React, {ReactElement} from "react";
 import {observable} from "mobx";
 import classNames from "classnames";
-import Icon from "antd/lib/Icon";
-import Input from "antd/lib/input/Input";
+import Icon from "antd/lib/icon";
+import Input from "antd/lib/input/input";
 
 
 const containerStyles = require('./styles/table.scss');

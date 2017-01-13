@@ -3,7 +3,7 @@ import Col from "antd/lib/grid/col";
 import {inject, observer} from "mobx-react";
 import {Link, IndexLink} from "react-router";
 import {ViewSettings} from "../../Stores/ViewSettingsStore/ViewSettings";
-import Icon from "antd/lib/Icon";
+import Icon from "antd/lib/icon";
 interface HeaderProps {
     viewSettings?: ViewSettings
 }
