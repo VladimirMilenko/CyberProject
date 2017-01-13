@@ -9,7 +9,8 @@ export class ViewSettings {
     @observable tableEnd: Moment = moment();
     @observable tableStart: Moment = moment();
 
-    @observable loading:boolean = false;
+    @observable loading: boolean = false;
+    @observable fullScreen: boolean = false;
 
 
     preloadComponents: number = 4;
@@ -38,21 +39,23 @@ export class ViewSettings {
         this.tableStart = moment(this.momentStart, "DD.MM.YYYY").add(-this.preloadComponents / 4, 'M');
         this.tableEnd = moment(this.momentStart, "DD.MM.YYYY").add(this.preloadComponents / 4, 'M');
     }
-    setExpandedViewState(state:ExpandedViewState){
-        switch (state){
+
+    setExpandedViewState(state: ExpandedViewState) {
+        switch (state) {
             case ExpandedViewState.Expanded:
-                for(let batch of this.store.batches.objects){
+                for (let batch of this.store.batches.objects) {
                     batch.expanded = true;
                 }
                 break;
             case ExpandedViewState.Collapsed:
-                for(let batch of this.store.batches.objects){
+                for (let batch of this.store.batches.objects) {
                     batch.expanded = false;
                 }
                 break;
         }
         this.expandedViewState = state;
     }
+
     setSelectedObject(uuid: string) {
         let prevInstance = this.store.cyberObjectsStore.get(this.selectedUUID);
         if (prevInstance instanceof BatchModel || prevInstance instanceof BatchStageModel)

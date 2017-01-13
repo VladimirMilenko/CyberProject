@@ -1,10 +1,30 @@
 import React, {Component} from "react";
 import Col from "antd/lib/grid/col";
-import {inject} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import {Link, IndexLink} from "react-router";
+import {ViewSettings} from "../../Stores/ViewSettingsStore/ViewSettings";
+import Icon from "antd/lib/Icon";
+interface HeaderProps {
+    viewSettings?: ViewSettings
+}
 
-@inject("routingStore")
-export class Header extends Component<{},{}> {
+@inject("viewSettings")
+@observer
+export class Header extends Component<HeaderProps,{}> {
+    setFullScreen() {
+        let elem = document.getElementById("root");
+        elem.style.position = "absolute";
+        elem.style.top = "0";
+        elem.style.left = "0";
+        this.props.viewSettings.fullScreen = true;
+    }
+
+    setNormalMode() {
+        let elem = document.getElementById("root");
+        elem.style.position = "relative";
+        this.props.viewSettings.fullScreen = false;
+    }
+
     render() {
         return (
             <Col span={24}>
@@ -12,6 +32,17 @@ export class Header extends Component<{},{}> {
                     <header className="widget__header widget__header_size_s widget__header_color_dark"
                             style={{backgroundColor:'#ffcf5e'}}>
                         Проекты / Демозалы / Демозал КРЭТ, модернизация
+                        <span className="widget__header_float_right" style={{paddingBottom:5,paddingTop:5}}>
+                            <Icon
+                                type={`${this.props.viewSettings.fullScreen ? 'shrink': 'arrows-alt'}`}
+                                onClick={(e)=>{
+                                    if(this.props.viewSettings.fullScreen)
+                                       this.setNormalMode();
+                                    else
+                                        this.setFullScreen();
+                                }}
+                            />
+                        </span>
                     </header>
                     <div className="widget__body" style={{height:'80px',padding:'30px 0'}}>
                         <ul className="menu">
@@ -26,7 +57,7 @@ export class Header extends Component<{},{}> {
                                 <Link to="/workers" className="menu__link link"
                                       activeClassName="menu__link_state_active">
                                     <span className="menu__icon"><i className="icon-two-users"/></span>
-                                    <span className="menu__title">Участники</span>
+                                    <span className="menu__title">Исполнители</span>
                                 </Link>
                             </li>
                         </ul>
