@@ -44,7 +44,13 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     rndObject: any;
     @observable expanded: boolean = false;
     @observable is_finished: boolean;
+
     @observable title: string;
+
+    @observable tempTitle:string;
+    @observable titleEditing:boolean = false;
+
+
     @observable plannedEndDate: Moment;
     @observable plannedStartDate: Moment;
     @observable detailsNumber: number;

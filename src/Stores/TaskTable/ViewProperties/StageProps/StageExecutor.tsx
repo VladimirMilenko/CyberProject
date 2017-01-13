@@ -27,7 +27,7 @@ export class StageExecutor extends StageViewProperty{
             <td key="stageExecutor" style={{background:background}} className="rst__table__cell">
                 <Select
                     style={{ width: 200 }}
-                    defaultValue={object.worker.name}
+                    value={object.worker.name}
                     placeholder="Выберите исполнителя"
                     optionFilterProp="children"
                     onChange={(newVal)=>{this.handleChange(object,newVal)}}
@@ -44,6 +44,7 @@ export class StageExecutor extends StageViewProperty{
         );
     }
     handleChange(object:BatchStageModel,newVal){
+        object.workerLink = newVal;
         //this.store.pathConstructionAlgorithm.buildCriticalPath(object.)
     }
     renderHeader(): ReactElement<any> {
