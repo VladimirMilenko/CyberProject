@@ -16,6 +16,7 @@ export class SimpleCriticalPath {
     }
 
     async buildCriticalPath(title: string, route: Route, detailNumber: number, startDate: Moment) {
+        route.store.viewSettings.loading = true;
         let batchStageInstances:Array<BatchStageModel> = [];
         startDate = startDate.set('hours', 8);
         let currentDate = moment(startDate);
@@ -73,6 +74,7 @@ export class SimpleCriticalPath {
         for(let stage of batchStageInstances){
             stage.batchLink = batch.uuid;
         }
+        route.store.viewSettings.loading = false;
         return batch;
     }
     workerTime(detailNumber:number,spec:SpecializationModel,worker:WorkerModel,startDate:Moment, equipment:EquipmentModel, baseDuration:number,batchStageModel:BatchStageModel):{duration:number}{
