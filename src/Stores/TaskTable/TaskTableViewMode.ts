@@ -16,6 +16,7 @@ import {StagePlannedEndDate} from "./ViewProperties/StageProps/StagePlannedEndDa
 import {StagePlannedDuration} from "./ViewProperties/StageProps/StagePlannedDuration";
 import {StageExecutor} from "./ViewProperties/StageProps/StageExecutor";
 import {StageEquipment} from "./ViewProperties/StageProps/StageEquipment";
+import {BatchDeleteVP} from "./ViewProperties/BatchProps/BatchDeleteVP";
 
 export class TaskTableViewMode {
     @observable batchDelimiter:BatchDelimiter;
@@ -27,6 +28,7 @@ export class TaskTableViewMode {
         this.batchDelimiter = new BatchDelimiter((val)=>{
             this.updateViewProperties(val);
         });
+        this.batchViewProperties.push(new BatchDeleteVP());
         this.batchViewProperties.push(new BatchStatusVP());
         this.batchViewProperties.push(new BatchTitleVP());
         this.batchViewProperties.push(new BatchDetailCodeVP);

@@ -13,17 +13,18 @@ import moment from 'moment/moment';
 import Moment = moment.Moment;
 
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
-import {Router,hashHistory, Route} from 'react-router';
+import {Router,hashHistory, Route} from "react-router";
 import {Home} from "./Routes/Home/Home";
 import {CalendarStore} from "./Stores/CalendarStore/CalendarStore";
 import {Workers} from "./Routes/Workers/Workers";
-
-
+declare var options;
+console.log(options);
 let store = new CyberObjectsStore();
 let calendarStore = new CalendarStore();
 let taskTableViewMode = new TaskTableViewMode(store);
-store.transportLayer = new CyberPlantTransportLayer(store, objectCreated, objectUpdated);
-store.transportLayer.connectToWS();
+store.transportLayer = new CyberPlantTransportLayer(store, objectCreated, objectUpdated,objectDeleted);
+store.transportLayer.apiUrl = options.apiURL;
+store.transportLayer.connectToWS(options.websocketsSettings.uri,options.websocketsSettings.realm,options.websocketsSettings.prefix);
 
 export function objectUpdated(updateParams) {
     let uuid = updateParams.cyberobjectInstanceUUID;
@@ -45,6 +46,16 @@ export function objectCreated(createParams) {
     }
 }
 
+export function objectDeleted(deleteParams){
+    let uuid = deleteParams.cyberobjectInstanceUUID;
+    let type = deleteParams.cyberobjectName;
+    switch (type) {
+        case "batch":
+            store.removeBatch(store.batches.findByUUID(uuid),false);
+            break;
+    }
+}
+
 store.transportLayer.fetchWorkers()
     .then((response) => {
         for (let instance of response.data.instances) {
@@ -57,6 +68,7 @@ const history = syncHistoryWithStore(hashHistory, routingStore);
 
 let viewSettings = new ViewSettings(store);
 store.setViewSettings(viewSettings);
+store.viewSettings.projectName = options.cyberObjectInstance.data.title;
 const stores = {
     cyberObjectsStore: store,
     taskTableViewMode: taskTableViewMode,
@@ -65,7 +77,7 @@ const stores = {
     calendarStore:calendarStore
 };
 @observer
-class TimerView extends React.Component<{},{}> {
+class MainApp extends React.Component<{},{}> {
     form: any;
 
     constructor() {
@@ -74,7 +86,7 @@ class TimerView extends React.Component<{},{}> {
 
     componentDidMount() {
         viewSettings.loading = true;
-        axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=4')
+        axios.get(`${store.transportLayer.apiUrl}cyberobjects/instances/?type=route&go_deeper_level=4`)
             .then((response) => {
                 if (response.data) {
                     let data: any = response.data;
@@ -83,7 +95,7 @@ class TimerView extends React.Component<{},{}> {
                             let routeInstance = store.createRoute(route);
                         }
                     }
-                    axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=batch&go_deeper_level=4')
+                    axios.get(`${store.transportLayer.apiUrl}cyberobjects/instances/?type=batch&go_deeper_level=4`)
                         .then((response) => {
                             if (response.data) {
                                 let data: any = response.data;
@@ -115,4 +127,4 @@ class TimerView extends React.Component<{},{}> {
 
 }
 
-ReactDOM.render( <TimerView />, document.getElementById('root'));
+ReactDOM.render( <MainApp />, document.getElementById('root'));

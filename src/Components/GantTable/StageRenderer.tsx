@@ -6,6 +6,7 @@ import {ReactElement} from "react";
 import {BatchStageModel} from "../../Models/BatchStageModel";
 import {ViewSettings} from "../../Stores/ViewSettingsStore/ViewSettings";
 import {BatchStatusVP} from "../../Stores/TaskTable/ViewProperties/BatchProps/BatchStatusVP";
+import {BatchDeleteVP} from "../../Stores/TaskTable/ViewProperties/BatchProps/BatchDeleteVP";
 interface StageRendererProps {
     taskTableViewMode?: TaskTableViewMode,
     stage: BatchStageModel,
@@ -36,7 +37,7 @@ export class StageRenderer extends React.Component<StageRendererProps,{}> {
         let batchCells: Array<ReactElement<any>> = [];
         let enabledBatchViews = batchViewProperties.filter(view => view.enabled);
         enabledBatchViews.map((bv, index) => {
-            if (bv instanceof BatchStatusVP) {
+            if (bv instanceof BatchStatusVP || bv instanceof BatchDeleteVP) {
                 batchCells.push(
                     <td key={`batchView-${index}`} className="rst__table__cell rst__table__cell_status"/>
                 )

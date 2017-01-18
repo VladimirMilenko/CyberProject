@@ -193,7 +193,19 @@ export class CyberObjectsStore {
         }
         return tree;
     }
-
+    removeBatch(cyberObjectInstance:BatchModel,removeOnServer = true){
+        this.removeListenerFromCyberObject(cyberObjectInstance);
+        for(let stage of cyberObjectInstance.batchStageSet){
+            this.removeListenerFromCyberObject(stage);
+        }
+        if(removeOnServer) {
+            for (let stage of cyberObjectInstance.batchStageSet) {
+                this.transportLayer.deleteObject(stage);
+            }
+            this.transportLayer.deleteObject(cyberObjectInstance);
+        }
+        this.batches.deleteObject(cyberObjectInstance);
+    }
     removeListenerFromCyberObject(cyberObjectInstance: CyberObjectInstance) {
         delete this.observers[cyberObjectInstance.uuid];
     }

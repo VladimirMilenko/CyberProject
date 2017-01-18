@@ -3,7 +3,48 @@
     <title>MobX Boilerplate</title>
 </head>
 <body class="page">
-<div id="root"></div>
+<div style="margin: 150px">
+    <div id="root"></div>
+</div>
+<script type="text/javascript">
+    var options = {
+        widgetInstance: {
+            uuid: "800fc258-a936-4e6b-ba53-08b2a4db9fef",
+            widget: {
+                uuid: "bfd38340-225e-4c56-9482-d7e82801014f",
+                name: "neuron"
+            },
+            settings: {
+                cyberobjectList: "batchStage",
+                titleFieldName: "name"
+            }
+        },
+        cyberObjectInstance: {
+            uuid: "7b2f828e-a807-4d85-bafb-86ade76fc0ba",
+            cyberObject: {
+                uuid: "3fbe5db3-2eaf-4379-895b-064abb64ede2",
+                name: "batch",
+                fields: [
+                    {
+                        type: "string",
+                        name: "title",
+                        title: "Заголовок"
+                    }
+                ]
+            },
+            data: {
+                title: "Первый проект"
+            }
+        },
+        websocketsSettings: {
+            uri: "ws://crossbario.sandbox.0-1-0.plant.cyber-platform.ru/ws",
+            prefix: "cyber-platform.plant.0-1-0.sandbox.",
+            realm: "cyber-platform"
+        },
+        apiURL: 'http://sandbox.0-1-0.plant.cyber-platform.ru/api/',
+        uploadURL: '/api/files/upload/'
+    };
+</script>
 <script src="/static/bundle.js"></script>
 </body>
 </html>

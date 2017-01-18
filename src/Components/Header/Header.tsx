@@ -5,7 +5,7 @@ import {Link, IndexLink} from "react-router";
 import {ViewSettings} from "../../Stores/ViewSettingsStore/ViewSettings";
 import Icon from "antd/lib/icon";
 interface HeaderProps {
-    viewSettings?: ViewSettings
+    viewSettings?: ViewSettings,
 }
 
 @inject("viewSettings")
@@ -13,15 +13,13 @@ interface HeaderProps {
 export class Header extends Component<HeaderProps,{}> {
     setFullScreen() {
         let elem = document.getElementById("root");
-        elem.style.position = "absolute";
-        elem.style.top = "0";
-        elem.style.left = "0";
+        elem.parentElement.style.position="fixed";
         this.props.viewSettings.fullScreen = true;
     }
 
     setNormalMode() {
         let elem = document.getElementById("root");
-        elem.style.position = "relative";
+        elem.parentElement.style.position="relative";
         this.props.viewSettings.fullScreen = false;
     }
 
@@ -31,7 +29,7 @@ export class Header extends Component<HeaderProps,{}> {
                 <section className="widget col-xs-12" style={{padding:0}}>
                     <header className="widget__header widget__header_size_s widget__header_color_dark"
                             style={{backgroundColor:'#ffcf5e'}}>
-                        Проекты / Демозалы / Демозал КРЭТ, модернизация
+                        {this.props.viewSettings.projectName}
                         <span className="widget__header_float_right" style={{paddingBottom:5,paddingTop:5}}>
                             <Icon
                                 type={`${this.props.viewSettings.fullScreen ? 'shrink': 'arrows-alt'}`}

@@ -26,6 +26,7 @@ export class ViewSettings {
     @observable selectedUUID: string;
     @observable headerSubItems: number = 0;
     @observable expandedViewState = ExpandedViewState.Collapsed;
+    @observable projectName = '';
 
     store: CyberObjectsStore;
 

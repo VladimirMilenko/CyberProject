@@ -7,6 +7,7 @@ import {GantModel, Selectable} from "../Components/GantTask";
 import {isNullOrUndefined} from "util";
 import {WorkerModel} from "./WorkerModel";
 import {EquipmentModel} from "./EquipmentModel";
+import {BatchModel} from "./BatchModel";
 
 
 export class BatchStageModel extends CyberObjectInstance implements GantModel, Selectable {
@@ -33,12 +34,23 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
 
     @observable expanded: boolean = true;
 
+    @observable baseDuration:number;
     @observable is_finished: boolean;
     @observable title: string;
     @observable plannedEndDate: Moment;
     @observable plannedStartDate: Moment;
     @observable setupDuration: number;
     @observable code: string;
+    @observable batchLink:string;
+
+
+    @computed get batch(){
+        console.log(this.batchLink);
+        let instance = this.store.cyberObjectsStore.get(this.batchLink);
+        console.log(instance);
+        if (instance instanceof BatchModel)
+            return instance;
+    }
 
     @observable workerLink: string;
     @observable equipmentLink: string;
@@ -67,6 +79,16 @@ export class BatchStageModel extends CyberObjectInstance implements GantModel, S
                 } else {
                     this.equipmentLink = object.equipment;
                 }
+            }
+            if(!isNullOrUndefined(object.baseDuration)){
+                this.baseDuration = object.baseDuration;
+            }
+            if(!isNullOrUndefined(object.batch)){
+                if(object.batch instanceof Object){
+                    console.log(object.batch);
+                    this.batchLink = object.batch.uuid;
+                } else
+                this.batchLink = object.batch;
             }
             if (!isNullOrUndefined(object.code))
                 this.code = object.code;

@@ -7,14 +7,18 @@ export abstract class AbstractTransportLayer{
 
     objectCreatedHandler:any;
     objectUpdatedHandler:any;
+    objectDeleteHandler:any;
     store:CyberObjectsStore;
-    constructor(store,objectCreatedHandler,objectUpdatedHandler){
+    apiUrl:string;
+    constructor(store,objectCreatedHandler,objectUpdatedHandler,objectDeleteHandler){
         this.objectCreatedHandler = objectCreatedHandler;
         this.objectUpdatedHandler = objectUpdatedHandler;
+        this.objectDeleteHandler = objectDeleteHandler;
         this.store = store;
     }
     abstract fetchWorkers():IPromise<AxiosXHR<any>>;
     abstract createObject(type:string,object:any):IPromise<AxiosXHR<any>>;
     abstract updateObject(object:any):IPromise<AxiosXHR<any>>;
-    abstract connectToWS();
+    abstract deleteObject(object:any):IPromise<AxiosXHR<any>>;
+    abstract connectToWS(uri:string,realm:string,prefix:string);
 }

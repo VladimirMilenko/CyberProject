@@ -7,6 +7,7 @@ import moment from 'moment/moment';
 import Moment = moment.Moment;
 import {EquipmentModel} from "../Models/EquipmentModel";
 import {Route} from "../Models/RouteModel";
+import {BatchStageModel} from "../Models/BatchStageModel";
 export class SimpleCriticalPath {
     private store: CyberObjectsStore;
 
@@ -15,12 +16,12 @@ export class SimpleCriticalPath {
     }
 
     async buildCriticalPath(title: string, route: Route, detailNumber: number, startDate: Moment) {
+        let batchStageInstances:Array<BatchStageModel> = [];
         startDate = startDate.set('hours', 8);
         let currentDate = moment(startDate);
         let batchStageSet: Array<string> = [];
         for (let stage of route.routeStageSet) {
             let spec = stage.specialization;
-            console.log(spec);
             let stageJson = {
                 plannedStartDate: moment(currentDate),
                 plannedEndDate: moment(currentDate),
@@ -29,7 +30,8 @@ export class SimpleCriticalPath {
                 worker: null,
                 equipment: null,
                 code: stage.code,
-                setupDuration: stage.setupDuration
+                setupDuration: stage.setupDuration,
+                baseDuration:stage.duration
             };
             let min = {
                 duration: 99999999,
@@ -37,7 +39,6 @@ export class SimpleCriticalPath {
                 worker: null
             };
             if (spec) {
-                console.log(spec.workerSet);
                 for (let worker of spec.workerSet) {
                     let res = this.workerMinTime(stage, spec, worker, currentDate, detailNumber);
                     console.log(res);
@@ -46,12 +47,12 @@ export class SimpleCriticalPath {
                     }
                 }
                 stageJson.plannedEndDate = moment(currentDate.add(min.duration, 'h'));
-                console.log(min);
                 stageJson.worker = min.worker.uuid;
                 if (min.equipment)
                     stageJson.equipment = min.equipment.uuid;
                 let result: any = await this.store.createBatchStageOnServer(stageJson);
                 let stageInstance = this.store.createBatchStage({...stageJson, uuid: result.data.UUID});
+                batchStageInstances.push(stageInstance);
                 batchStageSet.push(stageInstance.uuid);
             }
         }
@@ -64,12 +65,50 @@ export class SimpleCriticalPath {
             code:route.code,
             plannedDuration: plannedBatchEndDate.diff(startDate, 'hours'),
             detailsNumber: detailNumber,
-            batchStageSet: batchStageSet
+            batchStageSet: batchStageSet,
+            baseDuration:route.duration
         };
         let result: any = await this.store.createBatchOnServer(batchJson);
-        return this.store.createBatch({...batchJson, uuid: result.data.UUID});
+        let batch = this.store.createBatch({...batchJson, uuid: result.data.UUID});
+        for(let stage of batchStageInstances){
+            stage.batchLink = batch.uuid;
+        }
+        return batch;
     }
-
+    workerTime(detailNumber:number,spec:SpecializationModel,worker:WorkerModel,startDate:Moment, equipment:EquipmentModel, baseDuration:number,batchStageModel:BatchStageModel):{duration:number}{
+        console.log('workerTime');
+        let currentDate = moment(startDate);
+        let durationInHrs = batchStageModel.baseDuration * detailNumber + batchStageModel.setupDuration;
+        let stageDurationInDays = Math.ceil(durationInHrs / 8);//stage duration in 8hr days
+        let realHours = 0;
+        console.log(durationInHrs);
+        while (realHours < durationInHrs) {
+            if (currentDate.isoWeekday() < 6 && currentDate.hour() == 8) {
+                if (equipment.isWorkingAtDate(currentDate)) {
+                    if (worker.isWorkingAtDate(currentDate)) {
+                        if (durationInHrs - realHours > 8) {
+                            currentDate = currentDate.add(8, 'h');
+                            realHours += 8;
+                        }
+                        else {
+                            let diff = durationInHrs - realHours;
+                            currentDate = currentDate.add(diff, 'h');
+                            realHours = durationInHrs;
+                            break;
+                        }
+                    } else {
+                        stageDurationInDays++;
+                    }
+                } else {
+                    stageDurationInDays++;
+                }
+            }
+            currentDate = currentDate.add(1, 'd').set('hour', 8);
+        }
+        return{
+            duration:realHours
+        }
+    }
     workerMinTime(stage: RouteStageModel, spec: SpecializationModel, worker: WorkerModel, startDate: Moment, detailNumber: number): { worker: WorkerModel, equipment: EquipmentModel, duration: number } {
         let min = 99999999999;
 

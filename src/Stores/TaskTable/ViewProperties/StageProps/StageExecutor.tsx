@@ -5,6 +5,7 @@ import {ViewPropertyType} from "../AbstractViewProperty";
 import {CyberObjectsStore} from "../../../CyberObjectsStore/CyberObjectsStore";
 import Select from "antd/lib/select";
 import {ReactElement} from "react";
+import moment from 'moment';
 export class StageExecutor extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;
@@ -45,7 +46,11 @@ export class StageExecutor extends StageViewProperty{
     }
     handleChange(object:BatchStageModel,newVal){
         object.workerLink = newVal;
-        //this.store.pathConstructionAlgorithm.buildCriticalPath(object.)
+        let currentDate = object.plannedStartDate;
+        object.plannedStartDate = moment(currentDate);
+        let hours = object.store.pathConstructionAlgorithm.workerTime(object.batch.detailsNumber,object.worker.specialization,object.worker,currentDate,object.equipment,object.baseDuration,object);
+        object.plannedEndDate = moment(currentDate.add(hours.duration,'h'));
+        // = moment(currentDate);
     }
     renderHeader(): ReactElement<any> {
         return <td key="stageExecutor" className="rst__table__cell__header">Исполнитель</td> ;
