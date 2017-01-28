@@ -2,8 +2,8 @@ import {BatchViewProperty} from "./BatchViewProperty";
 import {ViewPropertyType} from "../AbstractViewProperty";
 import {BatchModel} from "../../../../Models/BatchModel";
 import React from 'react';
-import ReactElement = React.ReactElement;
 import {observable, action} from "mobx";
+import {ReactElement} from "react";
 
 export class BatchDelimiter extends BatchViewProperty{
     @observable collapsed:boolean = false;

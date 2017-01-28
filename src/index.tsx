@@ -1,45 +1,30 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {observable} from 'mobx';
 import {observer, Provider} from 'mobx-react';
-import Row from "antd/lib/grid/row";
-import Col from "antd/lib/grid/col";
 import {CyberObjectsStore} from "./Stores/CyberObjectsStore/CyberObjectsStore";
 import {CyberPlantTransportLayer} from "./TransportLayers/CyberPlantTransportLayer";
 import axios from 'axios';
-import Card from "antd/lib/card/";
 import './static/styles/core.scss';
-import {GantTable} from "./Components/GantTable/GantTable";
 import {ViewSettings} from "./Stores/ViewSettingsStore/ViewSettings";
 import {TaskTableViewMode} from "./Stores/TaskTable/TaskTableViewMode";
-import {GantChart} from "./Components/GantChart";
-import Button from "antd/lib/button/button";
-import Slider from "antd/lib/slider";
-import {getFlatDataFromTree} from "./TaskTree/utils/tree-data-utils";
-import Modal from "antd/lib/modal/Modal";
-import {CreateBatchForm} from "./Forms/CreateBatchForm";
 import LocaleProvider from "antd/lib/locale-provider";
 import ruRU from 'antd/lib/locale-provider/ru_RU'
-import {FormProps, default as Form} from "antd/lib/form/Form";
-import {RouteStageModel} from "./Models/RouteStageModel";
-import {Route} from "./Models/RouteModel";
 import moment from 'moment/moment';
-import {SpecializationModel} from "./Models/SpecializationModel";
 import Moment = moment.Moment;
-import {WorkerModel} from "./Models/WorkerModel";
-import {EquipmentModel} from "./Models/EquipmentModel";
-import {isNullOrUndefined} from "util";
-import {SimpleCriticalPath} from "./CriticalPathConstruction/SimpleCriticalPath";
 
-const marks = {
-    4: 'День',
-    24: 'Час',
-};
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import {Router,hashHistory, Route} from "react-router";
+import {Home} from "./Routes/Home/Home";
+import {CalendarStore} from "./Stores/CalendarStore/CalendarStore";
+import {Workers} from "./Routes/Workers/Workers";
+declare var options;
+console.log(options);
 let store = new CyberObjectsStore();
-let simpleCriticalPath = new SimpleCriticalPath(store);
+let calendarStore = new CalendarStore();
 let taskTableViewMode = new TaskTableViewMode(store);
-store.transportLayer = new CyberPlantTransportLayer(store, objectUpdated, objectCreated);
-store.transportLayer.connectToWS();
+store.transportLayer = new CyberPlantTransportLayer(store, objectCreated, objectUpdated,objectDeleted);
+store.transportLayer.apiUrl = options.apiURL;
+store.transportLayer.connectToWS(options.websocketsSettings.uri,options.websocketsSettings.realm,options.websocketsSettings.prefix);
 
 export function objectUpdated(updateParams) {
     let uuid = updateParams.cyberobjectInstanceUUID;
@@ -61,49 +46,47 @@ export function objectCreated(createParams) {
     }
 }
 
+export function objectDeleted(deleteParams){
+    let uuid = deleteParams.cyberobjectInstanceUUID;
+    let type = deleteParams.cyberobjectName;
+    switch (type) {
+        case "batch":
+            store.removeBatch(store.batches.findByUUID(uuid),false);
+            break;
+    }
+}
+
 store.transportLayer.fetchWorkers()
     .then((response) => {
         for (let instance of response.data.instances) {
             let worker = store.createWorker(instance);
         }
     });
+
+const routingStore = new RouterStore();
+const history = syncHistoryWithStore(hashHistory, routingStore);
+
 let viewSettings = new ViewSettings(store);
 store.setViewSettings(viewSettings);
+store.viewSettings.projectName = options.cyberObjectInstance.data.title;
 const stores = {
     cyberObjectsStore: store,
     taskTableViewMode: taskTableViewMode,
-    viewSettings: viewSettings
+    viewSettings: viewSettings,
+    routingStore:routingStore,
+    calendarStore:calendarStore
 };
-class AppState {
-    @observable timer = 0;
-
-    constructor() {
-        setInterval(() => {
-            this.timer += 1;
-        }, 1000);
-    }
-
-    resetTimer() {
-        this.timer = 0;
-    }
-}
-class ModalState {
-    @observable visible = false;
-}
 @observer
-class TimerView extends React.Component<{appState: AppState}, {modalState: ModalState}> {
+class MainApp extends React.Component<{},{}> {
     form: any;
 
     constructor() {
         super();
-        this.state = {
-            modalState: new ModalState()
-        };
     }
 
     componentDidMount() {
-
-        axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=route&go_deeper_level=4')
+        viewSettings.loading = true;
+        axios.get(`${store.transportLayer.apiUrl}cyberobjects/instances/?type=route&go_deeper_level=4`)
             .then((response) => {
                 if (response.data) {
                     let data: any = response.data;
@@ -112,7 +95,7 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                             let routeInstance = store.createRoute(route);
                         }
                     }
-                    axios.get('http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=batch&go_deeper_level=4')
+                    axios.get(`${store.transportLayer.apiUrl}cyberobjects/instances/?type=batch&go_deeper_level=4`)
                         .then((response) => {
                             if (response.data) {
                                 let data: any = response.data;
@@ -121,191 +104,27 @@ class TimerView extends React.Component<{appState: AppState}, {modalState: Modal
                                         let routeInstance = store.createBatch(batch);
                                     }
                                 }
+                                viewSettings.loading=false;
                             }
                         });
                 }
             });
-
-
     }
 
     render() {
-        let rows = getFlatDataFromTree({
-            treeData: store.gantTree, getNodeKey: ({node:_node, treeIndex}) => {
-                return _node.content.uuid;
-            },
-            ignoreCollapsed: true
-        });
         return (
             <Provider {...stores}>
                 <LocaleProvider locale={ruRU} children={null}>
-                    <div>
-                        <Row>
-                            <Col span={24}>
-                                <section className="widget col-xs-12" style={{padding:0}}>
-                                    <header className="widget__header widget__header_size_s widget__header_color_dark"
-                                            style={{backgroundColor:'#ffcf5e'}}>
-                                        Проекты / Демозалы / Демозал КРЭТ, модернизация
-                                    </header>
-                                    <div className="widget__body" style={{height:'80px',padding:'30px 0'}}>
-                                        <ul className="menu">
-                                            <li className="menu__item">
-                                                <a href='/' className="menu__link link menu__link_state_active">
-                                                    <span className="menu__icon "><i className="icon-folder"/></span>
-                                                    <span className="menu__title">Задачи</span>
-                                                </a>
-                                            </li>
-
-                                            <li className="menu__item">
-                                                <a href='/test' className="menu__link link">
-                                                    <span className="menu__icon"><i className="icon-two-users"/></span>
-                                                    <span className="menu__title">Участники</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <ul className="options">
-                                            <li className="options__item">
-                                                <a className="options__link link">
-                                                    <span className="options__icon"><i
-                                                        className="icon-berezka"/> </span>
-                                                </a>
-                                            </li>
-                                            <li className="options__item">
-                                                <a className="options__link link">
-                                                    <span className="options__icon"><i className="icon-grid"/></span>
-                                                </a>
-                                            </li>
-                                            <li className="options__item">
-                                                <a className="options__link link">
-                                                    <span className="options__icon"><i className="icon-cols"/> </span>
-                                                </a>
-                                            </li>
-                                            <li className="options__item">
-                                                <a className="options__link link options__link_state_active">
-                                                    <span className="options__icon"><i className="icon-list"/> </span>
-                                                </a>
-                                            </li>
-                                            <li className="options__item">
-                    <span className="options__icon">
-                    <a className="options__item_squared options__link link">
-                        А
-                    </a>
-                    </span>
-                                            </li>
-                                            <li className="options__item">
-                    <span className="options__icon">
-                    <a className="options__item_squared options__link link options__item_squared_state_active">
-                        М
-                    </a>
-                    </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </section>
-                            </Col>
-                            <Col span={24} style={{marginTop:20}}>
-                                <Card bordered={true}>
-                                    <Row className="widget__header">
-                                        <Col span={12}>
-                                            <div className="widget__header_float_left" style={{padding: '35px 60px'}}>
-                                            <span className="options__item_squared options__item_squared_state_active">
-                                                П
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                1
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                2
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                3
-                                            </span>
-                                                <span className="options__item_squared" style={{marginLeft: '10px'}}>
-                                                Все
-                                            </span>
-                                                <span
-                                                    style={{marginLeft: '50px', fontSize: '15px', fontWeight: 'bold'}}>
-                                                План производства
-                                            </span>
-                                            </div>
-                                        </Col>
-                                        <Col span={12}>
-                                            <div className="widget__header_float_right" style={{padding: '35px 60px'}}>
-                                                <Button size="large" type="primary"
-                                                        onClick={(e) => this.state.modalState.visible = !this.state.modalState.visible}>Добавить</Button>
-                                                <Slider max={24} min={4} marks={marks} step={null} defaultValue={4}
-                                                        onAfterChange={(val)=>{
-                                                if(val==4){
-                                                    viewSettings.headerSubItems =4;
-                                                    viewSettings.cellWidth = 72;
-                                                } else{
-                                                    viewSettings.headerSubItems =24;
-                                                    viewSettings.cellWidth = 450;
-                                                }
-                                                for(let task of store.batches.objects){
-                                                    task.updatePosition();
-                                                }
-                                                for(let task of store.batchStages.objects){
-                                                    task.updatePosition();
-                                                }
-                                            }}/>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col span={11}
-                                             style={{position:'relative', overflow:'hidden',overflowX:'auto', height:rows.length*31+160}}>
-                                            <GantTable />
-                                        </Col>
-                                        <Col>
-                                            <GantChart />
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <CreateBatchForm visible={this.state.modalState.visible}
-                                         onCancel={this.onCancel.bind(this)} onCreate={this.onCreate.bind(this)}
-                                         saveRef={this.saveFormRef.bind(this)}/>
-                    </div>
+                    <Router history={history}>
+                        <Route path="/" component={Home}/>
+                        <Route path="/workers" component={Workers} />
+                    </Router>
                 </LocaleProvider>
             </Provider>
 
         );
     }
 
-    onCancel(e = null) {
-        const form = this.form;
-        this.state.modalState.visible = false;
-        form.resetFields();
-    }
-
-    onCreate(e = null) {
-        const form = this.form;
-        form.validateFields((err, values) => {
-            if (!err) {
-                let title = values['title'];
-                let route = store.cyberObjectsStore.get(values['route']) as Route;
-                let detailNumber = values['detailNumber'];
-                let plannedStartDate = values['plannedStartDate'];
-                this.state.modalState.visible = false;
-                let batchInstance = store.pathConstructionAlgorithm.buildCriticalPath(title, route, detailNumber, plannedStartDate);
-                form.resetFields();
-            }
-        });
-    }
-
-    buildCriticalPath(title: string, route: Route, detailsNumber: number, startDate: Moment) {
-        let batchInstancePromise = simpleCriticalPath.buildCriticalPath(title, route, detailsNumber, startDate);
-        batchInstancePromise.then((batch) => {
-            console.log(batch.uuid);
-        });
-    }
-
-    saveFormRef(form) {
-        this.form = form;
-    }
 }
 
-const appState = new AppState();
-ReactDOM.render( <TimerView appState={appState}/>, document.getElementById('root'));
+ReactDOM.render( <MainApp />, document.getElementById('root'));

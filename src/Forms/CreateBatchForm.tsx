@@ -15,10 +15,11 @@ const FormItem = Form.Item;
 
 @inject("cyberObjectsStore")
 @Form.create()
-export class CreateBatchForm extends React.Component<{form?, cyberObjectsStore?: CyberObjectsStore,visible:boolean,onCancel:any,onCreate,saveRef},{}> {
+export class CreateBatchForm extends React.Component<{form?, cyberObjectsStore?: CyberObjectsStore,visible:boolean,onCancel:any,onCreate,saveRef:(any)},{}> {
     render() {
-        let {getFieldDecorator} = (this.props as FormComponentProps).form;
-        this.props.saveRef((this.props as FormComponentProps).form);
+        let form = (this.props as FormComponentProps).form;
+        let {getFieldDecorator} = form;
+        this.props.saveRef(form);
         return (
             <Modal visible={this.props.visible}
                    onCancel={this.props.onCancel}

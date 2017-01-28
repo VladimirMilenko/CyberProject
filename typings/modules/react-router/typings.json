@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/60e56c268fa43cee750cd410275f6d32dd4cf478/react-router/index.d.ts",
+    "raw": "registry:dt/react-router#2.0.0+20170117160610",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/60e56c268fa43cee750cd410275f6d32dd4cf478/react-router/index.d.ts"
+  }
+}

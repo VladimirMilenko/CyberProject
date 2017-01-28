@@ -1,17 +1,18 @@
 import {CyberObejctType} from "./CyberObjectTypes";
-import {computed, action} from "mobx";
+import {computed, action, observable} from "mobx";
 import {CyberObjectsStore} from "../../Stores/CyberObjectsStore/CyberObjectsStore";
 
 export class CyberObjectInstance {
     uuid: string;
     store: CyberObjectsStore;
-    autoUpdate:boolean = true;
+    autoUpdate: boolean = true;
 
     constructor(store: CyberObjectsStore) {
         this.store = store;
     }
 
     public fromJson(object: any) {
+        this.autoUpdate = false;
         if (object.uuid) {
             this.uuid = object.uuid;
         }

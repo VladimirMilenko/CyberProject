@@ -2,7 +2,7 @@ import {StageViewProperty} from "./StageViewProperty";
 import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
-import ReactElement = React.ReactElement;
+import {ReactElement} from "react";
 export class StageSite extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;

@@ -3,7 +3,7 @@ import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
 import moment from 'moment/moment';
-import ReactElement = React.ReactElement;
+import {ReactElement} from "react";
 export class StagePlannedDuration extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;

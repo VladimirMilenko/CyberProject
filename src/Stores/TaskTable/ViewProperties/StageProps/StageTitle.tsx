@@ -2,22 +2,37 @@ import {StageViewProperty} from "./StageViewProperty";
 import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
-import ReactElement = React.ReactElement;
-export class StageTitle extends StageViewProperty{
+import {ReactElement} from "react";
+import Icon from "antd/lib/Icon";
+
+export class StageTitle extends StageViewProperty {
     required: boolean = true;
     enabled: boolean = true;
     viewPropertyType: ViewPropertyType;
 
+    value: string = "";
+    editing: boolean = false;
+
     render(object: BatchStageModel): ReactElement<any> {
         let background = 'white';
-        if(object.howered)
+        if (object.howered)
             background = '#b8fde3';
-        if(object.selected)
+        if (object.selected)
             background = '#40ffad';
 
+
         return (
-            <td key="stageTitle" style={{background:background}} className="rst__table__cell">{object.title}</td>
+            <td key="stageTitle" style={{background:background}}
+                className="rst__table__cell">
+                {object.title}
+            </td>
         );
+    }
+    edit(){
+        this.editing = true;
+    }
+    saveChanges() {
+
     }
 
     renderHeader(): ReactElement<any> {

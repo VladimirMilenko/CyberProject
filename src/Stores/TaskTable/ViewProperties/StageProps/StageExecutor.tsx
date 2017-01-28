@@ -2,9 +2,10 @@ import {StageViewProperty} from "./StageViewProperty";
 import React from 'react';
 import {BatchStageModel} from "../../../../Models/BatchStageModel";
 import {ViewPropertyType} from "../AbstractViewProperty";
-import ReactElement = React.ReactElement;
 import {CyberObjectsStore} from "../../../CyberObjectsStore/CyberObjectsStore";
 import Select from "antd/lib/select";
+import {ReactElement} from "react";
+import moment from 'moment';
 export class StageExecutor extends StageViewProperty{
     required: boolean = true;
     enabled: boolean = true;
@@ -27,7 +28,7 @@ export class StageExecutor extends StageViewProperty{
             <td key="stageExecutor" style={{background:background}} className="rst__table__cell">
                 <Select
                     style={{ width: 200 }}
-                    defaultValue={object.worker.name}
+                    value={object.worker.name}
                     placeholder="Выберите исполнителя"
                     optionFilterProp="children"
                     onChange={(newVal)=>{this.handleChange(object,newVal)}}
@@ -44,7 +45,12 @@ export class StageExecutor extends StageViewProperty{
         );
     }
     handleChange(object:BatchStageModel,newVal){
-        //this.store.pathConstructionAlgorithm.buildCriticalPath(object.)
+        object.workerLink = newVal;
+        let currentDate = object.plannedStartDate;
+        object.plannedStartDate = moment(currentDate);
+        let hours = object.store.pathConstructionAlgorithm.workerTime(object.batch.detailsNumber,object.worker.specialization,object.worker,currentDate,object.equipment,object.baseDuration,object);
+        object.plannedEndDate = moment(currentDate.add(hours.duration,'h'));
+        // = moment(currentDate);
     }
     renderHeader(): ReactElement<any> {
         return <td key="stageExecutor" className="rst__table__cell__header">Исполнитель</td> ;

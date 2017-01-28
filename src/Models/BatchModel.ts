@@ -1,6 +1,6 @@
 import {CyberObjectInstance} from "./BasicTypes/CyberObjectInstance";
 import {CyberObejctType} from "./BasicTypes/CyberObjectTypes";
-import {observable, computed} from "mobx";
+import {observable, computed, action} from "mobx";
 import moment from 'moment';
 import {BatchStageModel} from "./BatchStageModel";
 import {isUndefined} from "util";
@@ -17,6 +17,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     @observable howered: boolean;
     @observable selected: boolean;
 
+    @action
     dragged(hours: number): void {
         this.plannedEndDate = moment(this.plannedEndDate.add(hours, 'h'));
         this.plannedStartDate = moment(this.plannedStartDate.add(hours, 'h'));
@@ -25,7 +26,7 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
         }
         this.updatePosition();
     }
-
+    @action
     resized(direction: string, hours: number): void {
         switch (direction) {
             case 'left':
@@ -41,20 +42,34 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
     }
 
     rndObject: any;
-    @observable expanded: boolean = true;
+    @observable expanded: boolean = false;
     @observable is_finished: boolean;
+
     @observable title: string;
+
+    @observable tempTitle:string;
+    @observable titleEditing:boolean = false;
+
+    @observable detailsNumber: number;
+
+    @observable tempDetailsNumber:number;
+    @observable detailsEditing:boolean = false;
+
+
     @observable plannedEndDate: Moment;
     @observable plannedStartDate: Moment;
-    @observable detailsNumber: number;
     @observable status: string;
     @observable code: string = "Не присвоен";
     @observable name: string;
     @observable batchStageLinks: Array<string> = [];
 
     @observable setupDuration:number;
+    @observable baseDuration:number;
     @observable workerLink: string;
     @observable equipmentLink: string;
+    @observable batchLink:string;
+    batch = null;
+
 
     @computed get worker(): WorkerModel {
         return null;
@@ -100,6 +115,9 @@ export class BatchModel extends CyberObjectInstance implements GantModel, Select
 
                 }
             }
+        }
+        if(!isNullOrUndefined(object.baseDuration)){
+            this.baseDuration = object.baseDuration;
         }
         if (!isUndefined(object.code))
             this.code = object.code;

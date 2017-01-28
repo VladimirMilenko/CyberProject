@@ -5,50 +5,64 @@ import AxiosXHR = Axios.AxiosXHR;
 import * as autobahn from "autobahn";
 import {Connection} from "autobahn";
 
-export const updateChannel = 'cyber-platform.plant.0-1-0.sandbox.cyberobjects.instances.updated';
-export const createChannel = 'cyber-platform.plant.0-1-0.sandbox.cyberobjects.instances.created';
-
 export class CyberPlantTransportLayer extends AbstractTransportLayer{
+    deleteObject(object: any): Axios.IPromise<Axios.AxiosXHR<any>> {
+        if(object instanceof Object)
+            return axios.post(
+                `${this.apiUrl}cyberobjects/instances/delete/`,
+                [object.uuid]
+            );
+        else{
+            return axios.post(
+                `${this.apiUrl}cyberobjects/instances/delete/`,
+                [object]
+            );
+        }
+    }
     private socketConnection:Connection;
-
-    constructor(store,objectCreatedHandler,objectUpdatedHandler){
-        super(store,objectCreatedHandler,objectUpdatedHandler);
-        this.connectToWS();
+    private objects: Array<any> = [];
+    apiUrl:string;
+    constructor(store,objectCreatedHandler,objectUpdatedHandler,objectDeleteHandler){
+        super(store,objectCreatedHandler,objectUpdatedHandler,objectDeleteHandler);
+        //this.connectToWS();
     }
     createObject(type: string, object: any): Axios.IPromise<Axios.AxiosXHR<any>> {
         return axios.post(
-            `http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/create/`,
+            `${this.apiUrl}cyberobjects/instances/create/`,
             [type,object]
         );
     }
     updateObject(object:any){
+
         return axios.post(
-            `http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/update/`,
+            `${this.apiUrl}cyberobjects/instances/update/`,
             {uuid:object.uuid,...object}
         );
     }
-    connectToWS() {
+    connectToWS(uri,realm,prefix) {
 
         this.socketConnection = new autobahn.Connection({
-            url: "ws://crossbario.sandbox.0-1-0.plant.cyber-platform.ru/ws",
-            realm: 'cyber-platform'
+            url: uri,
+            realm: realm
         });
         this.socketConnection.open();
         this.socketConnection.onopen = (session) => {
-
-            session.subscribe(updateChannel, (event) => {
+            session.subscribe(prefix+"cyberobjects.instances.updated", (event) => {
                 this.objectUpdatedHandler(event[0]);
             });
 
-            session.subscribe(createChannel, (event) => {
+            session.subscribe(prefix+"cyberobjects.instances.created", (event) => {
                 this.objectCreatedHandler(event[0]);
             });
+            session.subscribe(prefix+"cyberobjects.instances.deleted",(event)=>{
+                this.objectDeleteHandler(event[0]);
+            })
         }
     }
 
 
     fetchWorkers():IPromise<AxiosXHR<any>> {
-        return axios.get(`http://sandbox.plant.cyber-platform.ru/api/cyberobjects/instances/?type=worker`);
+        return axios.get(`${this.apiUrl}cyberobjects/instances/?type=worker`);
     }
 
 }
